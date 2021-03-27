@@ -1,0 +1,28 @@
+<body class="fixed-bottom-padding bg-success">
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-6">
+            <div class="p-5 text-center"> <i class="icofont-check-circled display-1 text-warning"></i>
+                <h1 class="text-white font-weight-bold">Osahan, Your order has been successful 🎉</h1>
+                <p class="text-white">Check your order status in
+                    <a href="https://askbootstrap.com/design/features-of-zomato-online-food-order-delivery-app/" class="font-weight-bold text-decoration-none text-white">My Order</a>
+                     about next steps information.</p>
+
+                    <% if(!loginUser){ %>
+                        <p class="text-white">Your Order Id: <%= orderId %> </p>
+                    <% } %>
+            </div>
+
+            <div class="bg-white rounded p-3 m-5 text-center">
+                <h6 class="font-weight-bold mb-2">Preparing your order</h6>
+                <p class="small text-muted">Your order will be prepared and will come soon</p>
+                <% if(loginUser){ %>
+                    <a href="/my-orders" class="btn rounded btn-warning btn-lg btn-block">Track My Order</a>
+                <% } else { %>
+                    <a href="/find-order" class="btn rounded btn-warning btn-lg btn-block">Track My Order</a>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+</body>

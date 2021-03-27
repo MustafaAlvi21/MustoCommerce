@@ -1,0 +1,94 @@
+<body class="fixed-bottom-padding">
+    <section class="py-4 osahan-main-body">
+        <div class="container">
+            <div class="row">
+
+                <!--                  Side Menu                  -->
+                <div class="col-md-3">
+                    <ul class="nav nav-tabs custom-tabs border-0 flex-column bg-white rounded overflow-hidden shadow-sm p-2 c-t-order" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link border-0 text-dark py-3" id="completed-tab" href="/my-orders/Completed">
+                                <i class="icofont-check-alt mr-2 text-success mb-0"></i> Completed</a>
+                        </li>
+                        <li class="nav-item border-top" role="presentation">
+                            <a class="nav-link border-0 text-dark py-3" id="progress-tab"
+                                href="/my-orders/Progress" role="tab" aria-controls="progress" aria-selected="false">
+                                <i class="icofont-wall-clock mr-2 text-warning mb-0"></i> On Progress</a>
+                        </li>
+                        <li class="nav-item border-top" role="presentation">
+                            <a class="nav-link border-0 text-dark py-3" id="canceled-tab"
+                                href="/my-orders/Cancel" role="tab" aria-controls="canceled" aria-selected="false">
+                                <i class="icofont-close-line mr-2 text-danger mb-0"></i> Canceled</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!--                 Orders Section                 -->
+                <div class="tab-content col-md-9" id="myTabContent">
+                    <div class="tab-pane fade show active" id="completed" role="tabpanel" aria-labelledby="completed-tab">
+                        <div class="order-body">
+
+                            <!-- Status Complete -->
+                        <% if (data.length > 0 ){
+                            data.forEach( data => { %>
+                                <div class="pb-3">
+                                    <a href="/order/<%= data.orderTracker %>" class="text-decoration-none text-dark">
+                                        <div class="p-3 rounded shadow-sm bg-white">
+                                            <div class="d-flex align-items-center mb-3">
+                                                <% if(data.status == 'Cancel'){ %>
+                                                    <p class="bg-danger text-white py-1 px-2 mb-0 rounded small">Canceled</p>
+                                                    <p class="text-muted ml-auto small mb-0"><i class="icofont-clock-time"></i> <span class="date1"> <%= data.date %> </span> </p>    
+                                                <% } %>
+                                                <% if(data.status == 'Pending' || data.status == 'Processing' || data.status == 'Shipping'){ %>
+                                                    <p class="bg-info text-white py-1 px-2 mb-0 rounded small"><%= data.status %></p>
+                                                    <a href="#" onclick="confirmation('<%= data.orderId %>')" class="bg-secondary text-white py-1 mx-1 px-2 mb-0 rounded small"> Cancle order</a>
+                                                    
+                                                    <p class="text-muted ml-auto small mb-0"><i class="icofont-clock-time"></i> <span class="date1"> <%= data.date %> </span> </p>
+                                                <% } %>
+                                                <% if(data.status == 'Delivered' || data.status == 'Completed'){ %>
+                                                    <p class="bg-success text-white py-1 px-2 mb-0 rounded small"><%= data.status %></p>
+                                                    <p class="text-muted ml-auto small mb-0"><i class="icofont-clock-time"></i> <span class="date1"> <%= data.date %> </span> </p>
+                                                <% } %>
+                                                
+                                            </div>
+                                            <div class="d-flex" style="flex-wrap: wrap;">
+                                                <p class="text-muted m-0 px-2">Order Tracker<br>
+                                                    <span class="text-dark font-weight-bold"><%= data.orderTracker %></span>
+                                                </p>
+                                                <p class="text-muted m-0 ml-auto px-2">Delivered to<br>
+                                                    <span class="text-dark font-weight-bold"><%= data.user.address888 %></span>
+                                                </p>
+                                                <p class="text-muted m-0 ml-auto px-2">Total Payment<br>
+                                                    <span class="text-dark font-weight-bold">Rs. <%= data.totalPrice %></span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                        <% }) } %>
+
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+
+</body>
+
+<script>
+    items = document.querySelectorAll(".date1");
+    for(i=0; i< items.length; i++){
+        a = document.querySelectorAll(".date1")[i].innerText.split(" ")
+        document.querySelectorAll(".date1")[i].innerText = `${a[0]} ${a[1]} ${a[2]} ${a[3]}`
+        // console.log(a);
+    }
+    
+    function confirmation(id) {
+        a = window.confirm("Do you want to cancel order?")
+        // console.log(e)
+        if(a == true) window.location = "/order/cancle/" + id;
+    }
+</script>

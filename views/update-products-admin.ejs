@@ -1,0 +1,117 @@
+<head>
+
+	<script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+	
+</head>
+
+<style>
+    .filepond--drop-label {
+	color: #4c4e53;
+}
+
+.filepond--label-action {
+	text-decoration-color: #babdc0;
+}
+
+.filepond--panel-root {
+	border-radius: 2em;
+	background-color: #edf0f4;
+	height: 1em;
+}
+
+.filepond--item-panel {
+	background-color: #595e68;
+}
+
+.filepond--drip-blob {
+	background-color: #7f8a9a;
+}
+.filepond--root{
+    height: 100px !important;
+    width: 100px !important;
+    font-size: small;
+    margin: 0px auto;
+}
+.filepond--panel-root {
+    border-radius: 0px !important;
+}
+.filefond--item{
+    transform: translate3d(0px, 0px, 0px) scale3d(1, 0.8, 1) !important;
+    opacity: 1;
+    height: 150px !important;
+    
+}
+.filepond--image-preview-wrapper {
+  
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 100% !important;
+
+    background: rgba(0, 0, 0, 0.01);
+}
+</style>
+
+<body>
+   
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-6 m-auto">
+                <form action="/admin/update-product/<%= products.productId %>" method="POST">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Product Name</label>
+                        <input type="text" name="name" value="<%= typeof products.name != 'undefinedx' ? products.name : '' %>" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required autofocus>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Price</label>
+                        <input type="text" name="price" value="<%= typeof products.price != 'undefined' ? products.price : '' %>" class="form-control" id="exampleInputPassword1" required autofocus>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Sub-Price</label>
+                        <input type="text" name="subPrice" value="<%= typeof products.subPrice != 'undefined' ? products.subPrice : '' %>" class="form-control" id="exampleInputPassword1">
+                    </div>
+                    <div class="mb-3">
+                        <select name="categoryId" id="" required autofocus> 
+                            <% categories.forEach( (category, i) => {
+                                if(products.categoryId == category.categoryId){ %>
+                                    <option value="<%= category.categoryId %>" selected> <%= category.name %></option>
+                                <% } else { %> 
+                                    <option value="<%= category.categoryId %>"> <%= category.name %></option>                            
+                                <% } }) %>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Brand</label>
+                        <input type="text" name="brand" value="<%= typeof products.brand != 'undefined' ? products.brand : '' %>" class="form-control" id="exampleInputPassword1">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Details</label>
+                        <input type="text" name="specs" value="<%= typeof products.specs != 'undefined' ? products.specs : '' %>" class="form-control" id="editor1" required autofocus>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Promo</label>
+                        <input type="text" name="promo" value="<%= typeof products.promo != 'undefined' ? products.promo : '' %>" class="form-control" id="exampleInputPassword1">
+                    </div>
+                <!-- <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">cover1Image</label>
+                    <input type="file" name="cover1" class="form-control filepond" id="exampleInputPassword1" required autofocus>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">coverImage</label>
+                    <input type="file" name="cover2" class="form-control filepond" id="exampleInputPassword1">
+                </div> -->
+                                
+                <button type="submit" class="btn btn-primary">Submit</button>
+                
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    CKEDITOR.replace( 'editor1' );
+</script>
+
+
+</body>

@@ -1,0 +1,7 @@
+.env
+node_modules
+Extras
+launch.json
+.vscode
+db
+images

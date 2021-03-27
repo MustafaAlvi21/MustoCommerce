@@ -1,0 +1,43 @@
+<body class="fixed-bottom-padding">
+   
+    <section class="osahan-main-body osahan-signin-main">
+        <div class="container">
+            <div class="row d-flex align-items-center justify-content-center vh-100">
+                <div class="col-lg-6 pl-lg-5">
+                    <div class="osahan-signin shadow-sm bg-white p-4 rounded">
+                        <div class="p-3">
+                            <h2 class="my-0">Welcome Back</h2>
+                            <p class="small mb-4">Sign in to Continue.</p>
+
+                            <%- include('./partials/messages.ejs') %>
+
+                            <form action="/sign-in" method="POST">
+                                <div class="form-group">
+                                    <label for="">Email</label>
+                                    <input placeholder="Enter Email" name="email"type="email" class="form-control" aria-describedby="emailHelp">
+                                </div>
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input placeholder="Enter Password" name="password"type="password" class="form-control">
+                                </div>
+                                <button type="submit" class="btn btn-success btn-lg rounded btn-block">Sign in</button>
+                            </form>
+                            <p class="text-muted text-center small m-0 py-3">or</p>
+                            <a href="verification.html" class="btn btn-dark btn-block rounded btn-lg btn-apple">
+                                <i class="icofont-brand-apple mr-2"></i> Sign up with Apple
+                            </a>
+                            <a href="verification.html" class="btn btn-light border btn-block rounded btn-lg btn-google">
+                                <i class="icofont-google-plus text-danger mr-2"></i> Sign up with Google
+                            </a>
+                            <p class="text-center mt-3 mb-0"><a href="/sign-up" class="text-dark">Don't have an account? Sign up</a></p>
+                            <p class="text-center mt-3 mb-0"><a href="/forget-password" class="text-dark">Forget Password? Recover now</a></p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

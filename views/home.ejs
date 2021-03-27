@@ -1,0 +1,346 @@
+<body class="fixed-bottom-padding">
+
+    <nav aria-label="breadcrumb" class="breadcrumb mb-0 d-none">
+        <div class="container">
+            <ol class="d-flex align-items-center mb-0 p-0">
+                <li class="breadcrumb-item"><a href="#" class="text-success">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page"></li>
+            </ol>
+        </div>
+    </nav>
+
+    <%- include('./partials/messages.ejs') %>
+    
+    <section class="py-4 osahan-main-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="osahan-home-page">
+                        <div class="osahan-body">
+
+                            <!--             Category-Slider             -->
+                            <div class="pt-3 pb-2  osahan-categories ">
+                                <div class="d-flex align-items-center mb-2">
+                                    <h5 class="m-0">What do you looking for?</h5>
+                                    <a href="listing.html" class="ml-auto btn btn-outline-success btn-sm">See more</a>
+                                </div>
+                                <div class="categories-slider" >
+
+                                    <% if(categories.length > 0 ){
+                                        categories.forEach((item, i) => { %>
+                                                <div class="col-c" id="categories-slider1">
+                                                    <div class="bg-white shadow-sm rounded text-center my-2 px-2 py-3 c-it">
+                                                        <a href="/listing/<%= item.subName %>">
+                                                            <img src="img/categorie/<%= item.subName %>.JPG" class="img-fluid px-2 mx-auto">
+                                                            <p class="m-0 pt-2 text-muted text-center"><%= item.name %></p>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                
+                                                
+                                        <% })
+                                    } %>
+
+                                </div>
+                            </div>
+
+                
+                            <!--             Recommend-for-You             -->
+                            <div class="title d-flex align-items-center py-3">
+                                <h5 class="m-0">Featured Products</h5>
+                                <a class="ml-auto btn btn-outline-success btn-sm" href="/listing">See more</a>
+                            </div>
+
+                            <div class="osahan-recommend">
+                                <div class="row">
+                                    
+                                <% if(featureProduct.length > 0 ){
+                                    featureProduct.forEach( (item, i) => { 
+                                        if( i < 3) { %>
+
+                                        <div class="col-12 col-md-4 mb-3">
+                                            <a href="/product-detail/<%= item.productId %>" class="text-dark text-decoration-none">
+                                                <div class="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">                                                
+                                                        <div class="recommend-slider2 rounded mb-0">
+                                                            <% if(item.image1){ %>
+                                                                <div class="osahan-slider-item m-2 rounded">
+                                                                    <img src="<%= item.image1 %>" class="img-fluid mx-auto rounded shadow-sm" alt="img-<%= i %>">
+                                                                </div>
+                                                            <% } %>
+                                                            <% if(item.image2){ %>
+                                                            <div class="osahan-slider-item m-2 rounded">
+                                                                <img src="<%= item.image2 %>" class="img-fluid mx-auto rounded shadow-sm" alt="img-<%= i %>">
+                                                            </div>
+                                                            <% } %>
+                                                            <% if(item.image3){ %>
+                                                            <div class="osahan-slider-item m-2 rounded">
+                                                                <img src="<%= item.image3 %>" class="img-fluid mx-auto rounded shadow-sm" alt="img-<%= i %>">
+                                                            </div>
+                                                            <% } %>
+                                                        </div>
+
+                                                        <div class="p-3 position-relative">
+                                                            <h6 class="mb-1 font-weight-bold text-success"><%= item.name %></h6>
+                                                            <!-- <p class="text-muted">Orange Great Quality item from Jamaica.</p> -->
+                                                            <div class="d-flex align-items-center">
+                                                                <h6 class="m-0">Rs. <%= item.subPrice %></h6>
+                                                                <a class="ml-auto" href="#">
+                                                                    <!-- <form id='myform' class="cart-items-number d-flex" method='POST' action='#'>
+                                                                        <input type='button' value='-' class='qtyminus btn btn-success btn-sm' field='quantity' />
+                                                                        <input type='text' name='quantity' value='1' class='qty form-control' />
+                                                                        <input type='button' value='+' class='qtyplus btn btn-success btn-sm' field='quantity' />
+                                                                    </form> -->
+                                                                </a>
+                                                            </div>
+                                                        </div>                                                
+                                                </div>
+                                            </a>
+                                        </div>
+                                                                                        
+                                        <% }
+                                    })
+                                } %>
+                                </div>
+                            </div>
+                            <!--        Recommend-for-You Ends Here        -->
+
+
+                            <!--             Pick-Today             -->
+                            <div class="title d-flex align-items-center py-3">
+                                <h5 class="m-0">Pick's Today</h5>
+                                <a class="ml-auto btn btn-outline-success btn-sm" href="/listing">See more</a>
+                            </div>
+                            <div class="pick_today">
+                                <div class="row" id="productRow1"></div>
+                            </div>
+
+                                                        
+                            <!--             Promos-Slider             -->
+                            <!-- <div class="py-3 osahan-promos">
+                                <div class="d-flex align-items-center mb-3">
+                                    <h5 class="m-0">Promos for you</h5>
+                                    <a href="promos.html" class="ml-auto btn btn-outline-success btn-sm">See more</a>
+                                </div>
+                                <div class="promo-slider pb-0 mb-0">
+                                    <div class="osahan-slider-item mx-2">
+                                        <a href="promo_details.html"><img src="img/promo1.jpg"
+                                                class="img-fluid mx-auto rounded" alt="Responsive image"></a>
+                                    </div>
+                                    <div class="osahan-slider-item mx-2">
+                                        <a href="promo_details.html"><img src="img/promo2.jpg"
+                                                class="img-fluid mx-auto rounded" alt="Responsive image"></a>
+                                    </div>
+                                    <div class="osahan-slider-item mx-2">
+                                        <a href="promo_details.html"><img src="img/promo3.jpg"
+                                                class="img-fluid mx-auto rounded" alt="Responsive image"></a>
+                                    </div>
+                                    <div class="osahan-slider-item mx-2">
+                                        <a href="promo_details.html"><img src="img/promo4.jpg"
+                                                class="img-fluid mx-auto rounded" alt="Responsive image"></a>
+                                    </div>
+                                    <div class="osahan-slider-item mx-2">
+                                        <a href="promo_details.html"><img src="img/promo2.jpg"
+                                                class="img-fluid mx-auto rounded" alt="Responsive image"></a>
+                                    </div>
+                                    <div class="osahan-slider-item mx-2">
+                                        <a href="promo_details.html"><img src="img/promo3.jpg"
+                                                class="img-fluid mx-auto rounded" alt="Responsive image"></a>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+<!-- -------------------------------------- -->
+<!--           SCRIPT FOR SIGN UP           -->
+<!-- -------------------------------------- -->
+<script>
+
+/* ================================================== */
+/*                  Validating Phone                  */
+/* ================================================== */
+function checkPhone(){
+    const phone = document.getElementsByName('phone')[0].value
+    phone.length != 12 ? document.getElementById("phone1").style.display = "block" : document.getElementById("phone1").style.display = "none" 
+    phone.slice(0,2) != "92" ? document.getElementById("phone2").style.display = "block" : document.getElementById("phone2").style.display = "none" 
+    phone.length != 12 ? document.getElementById("submitBtn").disabled = true : document.getElementById("submitBtn").disabled = false 
+    phone.slice(0,2) != "92" ? document.getElementById("submitBtn").disabled = true : document.getElementById("submitBtn").disabled = false 
+    phone.length == 12 && phone.slice(0,2) == "92" ? document.getElementById("phone3").style.display = "block" : document.getElementById("phone3").style.display = "none" 
+}
+
+/* ================================================== */
+/*             Validating Password Length             */
+/* ================================================== */
+function passLength(){
+    const password = document.getElementsByName('password')[1].value
+    console.log(password)
+    password.length < 6 ? document.getElementById("password1").style.display = "block" : document.getElementById("password1").style.display = "none" 
+    password.length < 6 ? document.getElementById("submitBtn").disabled = true  : document.getElementById("submitBtn").disabled = false  
+    password.length >= 6 ? document.getElementById("password2").style.display = "block" : document.getElementById("password2").style.display = "none" 
+}
+
+/* ================================================== */
+/*    Validating RE-Password and Password Matching    */
+/* ================================================== */
+function matchPasssword(){
+    const password = document.getElementsByName('password')[1].value
+    const re_password = document.getElementsByName('re_password')[0].value
+    console.log(re_password)
+    if (password == re_password) {
+        document.getElementById("msg2").style.display = "block";
+        document.getElementById("msg1").style.display = "none";
+        document.getElementById("submitBtn").disabled = false;
+    } else {
+        document.getElementById("msg1").style.display = "block";
+        document.getElementById("msg2").style.display = "none";
+        document.getElementById("submitBtn").disabled = true;
+    }    
+}
+
+/* ================================================== */
+/*                     Sign Up API                    */
+/* ================================================== */
+function signUpForm(){
+    const name = document.getElementsByName('name')[0].value
+    const email = document.getElementsByName('email')[0].value
+    const phone = document.getElementsByName('phone')[0].value
+    const password = document.getElementsByName('password')[1].value
+    const re_password = document.getElementsByName('re_password')[0].value
+    const data = { name, email, phone, password, re_password }
+    fetch('http://localhost:4000/sign-up', {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {"Content-type": "application/json; charset=UTF-8"}
+        })
+        .then(response => response.json()) 
+        .then(json => {
+            console.log(json)
+            console.log(json.success_msg)
+
+            if(typeof json.errors != 'undefined' && json.errors[0].msg != ''){
+                document.getElementById("msgSection").innerHTML += `
+                <div id="alert-danger" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <center>
+                        <strong> ${json.errors[0].msg} </strong>   
+                    </center> 
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>`
+
+                document.getElementsByName('email')[0].value = "";
+                document.getElementsByName('password')[1].value = "";
+                document.getElementsByName('re_password')[0].value = "";
+                document.getElementById("password2").style.display = "none"
+                document.getElementById("phone3").style.display = "none"
+                document.getElementById("msg2").style.display = "none";
+                setTimeout(() => {
+                    document.getElementById("alert-danger").style.display = "none"
+                }, 3000);
+            }
+            if(typeof json.success_msg != 'undefined' && json.success_msg != ''){
+                document.getElementById("msgSection").innerHTML += `
+                <div id="alert-success" class="alert alert-success alert-dismissible fade show" role="alert">
+                    <center>
+                        <strong> ${json.success_msg} </strong> 
+                    </center> 
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div> `
+
+                const name = document.getElementsByName('name')[0].value = "";
+                const email = document.getElementsByName('email')[0].value = "";
+                const phone = document.getElementsByName('phone')[0].value = "";
+                const password = document.getElementsByName('password')[1].value = "";
+                const re_password = document.getElementsByName('re_password')[0].value = "";
+                document.getElementById("password2").style.display = "none"
+                document.getElementById("phone3").style.display = "none"
+                document.getElementById("msg2").style.display = "none";
+                setTimeout(() => {
+                    document.getElementById("alert-success").style.display = "none"
+                }, 3000);
+            }
+        })
+        .catch(err => 
+            console.log(err)
+        );
+}
+
+</script>
+
+
+<!-- -------------------------------------- -->
+<!--           SCRIPT FOR SIGN IN           -->
+<!-- -------------------------------------- -->
+
+<!-- -------------------------------------- -->
+<!--          SCRIPT FOR PRODUCTS           -->
+<!-- -------------------------------------- -->
+<script>
+
+/* ================================================== */
+/*                     Add to cart                     */
+/* ================================================== */
+// function addToCart(itemId) {
+//     let product = {}
+//     if(itemId[0] == "+"){
+//         id1 = itemId.split("+")
+//         product = {
+//             Id : id1[1], quantity: 1
+//         }
+//     } 
+//     if(itemId[0] == "-"){
+//         id1 = itemId.split("-")
+//         product = {
+//             Id : id1[1], quantity: -1
+//         }
+//     } 
+
+//     // console.log(product)
+    
+//     if (localStorage.getItem("product") === null) { a = [product]; return localStorage.setItem('product', JSON.stringify(a)); }
+//     a =  JSON.parse(localStorage.getItem("product"))
+//     temp = itemId.toString
+//     a = JSON.parse(localStorage.getItem("product"))
+//     for (let [key, value] of Object.entries(a)) {
+//         if(value.Id == product.Id ){
+//             // alert("value.quantity" + value.quantity)
+//             if(parseInt(value.quantity + product.quantity) >= 0){
+//                 // console.log("found")
+//                 // console.log(key)
+//                 a[key].quantity = parseInt(value.quantity + product.quantity)
+//                 localStorage.setItem('product', JSON.stringify(a)); 
+//                 // alert('Added to cart')   
+//                 return true;
+//             }else{
+//                 return true;
+//             }
+//         }
+//     }
+//     a.push(product)
+//     return localStorage.setItem('product', JSON.stringify(a));            
+// }
+
+        
+/* ================================================== */
+/*         It retrieves the data for home page        */
+/* ================================================== */
+
+window.onload = () => {
+    var scriptElement=document.createElement('script');
+    scriptElement.type = 'text/javascript';
+    scriptElement.src = "../js/home.js";
+    document.head.appendChild(scriptElement);    
+}
+
+   
+</script>     
+
+</html>

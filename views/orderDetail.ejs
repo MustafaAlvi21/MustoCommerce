@@ -1,0 +1,155 @@
+<body class="fixed-bottom-padding">
+
+    <nav aria-label="breadcrumb" class="breadcrumb mb-0">
+        <div class="container">
+            <ol class="d-flex align-items-center mb-0 p-0">
+                <li class="breadcrumb-item"><a href="#" class="text-success">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">My order</li>
+                <% if(route != "findOrder"){ %>
+                    <li class="breadcrumb-item active" aria-current="page">Details</li>
+                <% } %>
+            </ol>
+        </div>
+    </nav>
+
+    <section class="py-4 osahan-main-body">
+        <div class="container">
+            <div class="row">
+                <% if(route != "findOrder"){ %>
+                    <div class="col-md-3">
+                        <ul class="nav nav-tabs custom-tabs border-0 flex-column bg-white rounded overflow-hidden shadow-sm p-2 c-t-order" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <% if (data.status == 'Completed'){ %>
+                                <a href="/my-orders/Completed" class="nav-link border-0 text-dark py-3 active" role="tab">
+                                    <i class="icofont-check-alt mr-2 text-success mb-0"></i> Completed </a>
+                            <% } else { %> 
+                                <a href="/my-orders/Completed" class="nav-link border-0 text-dark py-3" role="tab">
+                                    <i class="icofont-check-alt mr-2 text-success mb-0"></i> Completed </a>
+                            <% } %>
+                        </li>
+                        <li class="nav-item border-top" role="presentation">
+                            <% if (data.status != 'Completed' && data.status != 'Cancel'){ %>
+                                <a href="/my-orders/Progress" class="nav-link border-0 text-dark py-3 active" role="tab">
+                                    <i class="icofont-wall-clock mr-2 text-warning mb-0"></i> On Progress</a>
+                            <% } else { %> 
+                                <a href="/my-orders/Progress" class="nav-link border-0 text-dark py-3" role="tab">
+                                    <i class="icofont-wall-clock mr-2 text-warning mb-0"></i> On Progress</a>
+                                    <% } %>
+                                </li>
+                        <li class="nav-item border-top" role="presentation">
+                            <% if (data.status == 'Cancel'){ %>
+                                <a href="/my-orders/Cancel" class="nav-link border-0 text-dark py-3 active" role="tab">
+                                    <i class="icofont-close-line mr-2 text-danger mb-0"></i> Canceled</a>
+                            <% } else { %> 
+                                <a href="/my-orders/Cancel" class="nav-link border-0 text-dark py-3" role="tab">
+                                    <i class="icofont-close-line mr-2 text-danger mb-0"></i> Canceled</a>
+                                    <% } %>
+                                </li>
+                            </ul>
+                        </div>
+                    <% } %>
+
+
+                <div class="col-md-9 m-auto">
+                    <section class="bg-white osahan-main-body rounded shadow-sm overflow-hidden">
+                        <div class="container-0">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="osahan-status">
+
+                                        <div class="p-3 status-order border-bottom bg-white">
+                                            <p class="small m-0"><i class="icofont-ui-calendar"></i> <span class="date1"> <%= data.date %></span>
+                                            </p>
+                                        </div>
+                                        <div class="p-3 border-bottom">
+                                            <h6 class="font-weight-bold">Order Status</h6>
+                                            <div class="tracking-wrap">
+                                                <span class="text small"> <%= data.status %></span>
+
+                                                <!-- <div class="my-1 step active">
+                                                    <span class="icon text-success"><i
+                                                            class="icofont-check-circled"></i></span>
+                                                    <span class="text small">Preparing order</span>
+                                                </div> -->
+
+                                                <!-- <div class="my-1 step active">
+                                                    <span class="icon text-danger"><i
+                                                            class="icofont-close-circled"></i></span>
+                                                    <span class="text small">Ready to collect</span>
+                                                </div> -->
+
+                                                <!-- <div class="my-1 step">
+                                                    <span class="icon text-danger"><i
+                                                            class="icofont-close-circled"></i></span>
+                                                    <span class="text small">On the way </span>
+                                                </div> -->
+
+                                                <!-- <div class="my-1 step">
+                                                    <span class="icon text-danger"><i
+                                                            class="icofont-close-circled"></i></span>
+                                                    <span class="text small">Delivered Order</span>
+                                                </div> -->
+
+                                            </div>
+                                        </div>
+
+                                        <div class="p-3 border-bottom bg-white">
+                                            <h6 class="font-weight-bold">Destination</h6>
+                                            <p class="m-0 small pb-2"><%= data.user.address888 %>, <%= data.user.cityAndState888 %></p>
+                                            <h6 class="font-weight-bold">Postal Code</h6>
+                                            <p class="m-0 small pb-2"><%= data.user.postalCode888 %></p>
+                                        </div>
+
+
+                                        <div class="p-3 border-bottom">
+                                            <div class="row">
+                                                <table class="table">
+                                                    <thead>
+                                                      <tr>
+                                                        <th scope="col">Image</th>
+                                                        <th scope="col">Name</th>
+                                                        <th scope="col">Price</th>
+                                                        <th scope="col">Promo</th>
+                                                      </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <% data.products.forEach(item => { %> 
+                                                        <tr>
+                                                            <td class="w-auto"><img src="<%= item.image %>" alt="img" class="figure-img img-fluid rounded" width="100px"></td>
+                                                            <th class="w-auto"><%= item.name %></th>
+                                                            <td class="w-auto"><%= item.subPrice %></td>
+                                                            <td class="w-auto"><%= item.promo > 0 ? item.promo : 0 %>%</td>
+                                                        </tr>
+                                                    <% }) %>
+                                                    </tbody>
+                                                </table>  
+                                            </div>
+                                        </div>
+
+
+                                        <div class="p-3 border-bottom bg-white">
+                                            <div class="d-flex align-items-center mb-2">
+                                                <h6 class="font-weight-bold mb-1">Total Cost</h6>
+                                                <h6 class="font-weight-bold ml-auto mb-1">Rs. <%= data.totalPrice %></h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+
+<script>
+    items = document.querySelectorAll(".date1");
+    for(i=0; i< items.length; i++){
+        a = document.querySelectorAll(".date1")[i].innerText.split(" ")
+        document.querySelectorAll(".date1")[i].innerText = `${a[0]} ${a[1]} ${a[2]} ${a[3]}`
+        // console.log(a);
+    }
+</script>

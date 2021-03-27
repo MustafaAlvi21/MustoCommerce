@@ -1,0 +1,57 @@
+<body>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-3" style="border: 1px solid;">
+                <h4> Category list</h4>
+                <hr>
+                <% categories.forEach( (category, i) => { %>
+                    <h6>
+                        <a href=""> <%= category.name %> </a>
+                    </h6>
+                <% }) %>
+            </div>
+            <div class="col" style="border: 1px solid;">
+                <h1> Products list</h1>
+                <hr>
+                <div class="row">
+                    <% products.forEach( (product, i) => { %>                          
+                        <div class="col-4 product-card m-3 bg-secondary">
+                            <div class="img text-center"> <img class="img-fluid" id="img1" src="<%= product.image %>" alt="cover1Image" style="max-height: 150px !important;"> </div>
+                            <div class="title"> <h5> <%= product.name %> </h5></div>
+                            <div class="catproductIdegory"><%= product.categoryDetails[0].name %></div>
+                            <div class="price">Rs. <%= product.price %>-/</div>
+                            <button class="btn btn-info" onclick="addToCart('<%= product.productId %>')">Add To Cart</button>
+                            <a href="/admin/update-products/<%= product.productId %>" class="btn btn-warning"> Update It</a>
+                        </div>
+                    <% }) %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    function addToCart(itemId) {
+        alert('Added to cart')
+        product = {
+            Id : itemId, quantity: 1
+        }
+        if (localStorage.getItem("product") === null) { a = [product]; return localStorage.setItem('product', JSON.stringify(a)); }
+        a =  JSON.parse(localStorage.getItem("product"))
+        temp = itemId.toString
+        a = JSON.parse(localStorage.getItem("product"))
+        for (let [key, value] of Object.entries(a)) {
+            if(value.Id == product.Id ){
+                console.log("found")
+                console.log(key)
+                a[key].quantity = parseInt(value.quantity + 1)
+                localStorage.setItem('product', JSON.stringify(a));    
+                return true;
+            }
+        }
+        a.push(product)
+        return localStorage.setItem('product', JSON.stringify(a));            
+    }
+</script>

@@ -1,0 +1,73 @@
+<body>
+    <div class="container">
+        <div class="row">
+            <table class="table table-responsive">
+                <thead class="table-striped"></thead>
+                <tbody>
+                    <tr>
+                        <td>img</td>
+                        <td>name</td>
+                        <td>quantity</td>
+                        <td>price</td>
+                        <td>sub total</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+<script>
+
+    // data to be sent to the POST request
+    let products = JSON.parse(localStorage.getItem("product"))
+    let data = [...products]
+    data = data.map(obj => { return obj.Id })
+
+    fetch('http://localhost:4000/find-cart-data', {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {"Content-type": "application/json; charset=UTF-8"}
+    })
+    .then(response => response.json()) 
+    .then(json => {
+        console.log(json)
+        cartData(json)
+    })
+    .catch(err => 
+        console.log(err)
+    );
+
+    async function cartData(data) {
+        a = document.querySelector("tbody")
+        len = data.length
+        products = JSON.parse(localStorage.getItem("product"))
+        totalPrice = 0;
+
+        data.forEach( (item, i) => {
+            console.log(item)
+            a.innerHTML += `                    <tr>
+                        <td> <img src="${item.image}" width="150px" height="100px" alt="img-${i}"> </td>
+                        <td> ${item.name} </td>
+                        <td> ${products[i].quantity} </td>
+                        <td> ${item.price} </td>
+                        <td> ${products[i].quantity * item.price} </td>
+                    </tr>
+            `
+            console.log("totalPrice > " + typeof parseInt(totalPrice.innerText));
+            totalPrice = totalPrice + parseInt(products[i].quantity * item.price)
+        });
+        a.innerHTML += `
+            <tr>
+                <td colspan="2"></td>
+                <td>Total</td>
+                <td id="totalPrice">0</td>
+                <td><a  class="btn btn-outline-success"> <strong> >>> Go to Checkout </strong> </a></td>
+            </tr>                    
+`
+
+        document.getElementById("totalPrice").innerText = totalPrice
+        console.log(a)  
+    }
+</script>
+    

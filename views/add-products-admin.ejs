@@ -1,0 +1,235 @@
+<head>
+
+	<script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+	<!-- <script src="//cdn.ckeditor.com/4.10.1/standard/ckeditor.js"></script> -->
+<!-- // Basic -->
+<!-- <script src="//cdn.ckeditor.com/4.10.1/basic/ckeditor.js"></script> -->
+<!-- // Full -->
+<!-- <script src="//cdn.ckeditor.com/4.10.1/full/ckeditor.js"></script> -->
+</head>
+
+<style>
+    .filepond--drop-label {
+	color: #4c4e53;
+}
+
+.filepond--label-action {
+	text-decoration-color: #babdc0;
+}
+
+.filepond--panel-root {
+	border-radius: 2em;
+	background-color: #edf0f4;
+	height: 1em;
+}
+
+.filepond--item-panel {
+	background-color: #595e68;
+}
+
+.filepond--drip-blob {
+	background-color: #7f8a9a;
+}
+.filepond--root{
+    height: 100px !important;
+    width: 100px !important;
+    font-size: small;
+    margin: 0px auto;
+}
+.filepond--panel-root {
+    border-radius: 0px !important;
+}
+.filefond--item{
+    transform: translate3d(0px, 0px, 0px) scale3d(1, 0.8, 1) !important;
+    opacity: 1;
+    height: 150px !important;
+    
+}
+.filepond--image-preview-wrapper {
+  
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 100% !important;
+
+    background: rgba(0, 0, 0, 0.01);
+}
+
+
+
+/*  F O R   C O L O R   P I C K E R  */
+#container_color_picker{
+    width:350px;
+    background:#140721;
+    height:200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius:10px;
+    border: 1px solid;
+    padding: 10px;
+}
+
+.color{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.color input[type="color"]{
+    width:45px;
+    height:45px;
+    margin-right: 15px;
+    
+}
+
+.color input[type="text"]{
+    width: 250px;
+    padding: 10px;
+    font-size: 20px;
+    outline: none;
+    letter-spacing: 3px;
+    font-weight: bold;
+    opacity: 0.85;
+    transition: all 250ms ease;
+}
+
+.color input[type="text"]:hover{
+    opacity:1;
+}
+
+.btn #btn{
+    padding: 10px;
+    border: none;
+    font-weight: bolder;
+    font-size:18px;
+    letter-spacing: 2px;
+    outline: none;
+    transition: all 300ms ease;
+    margin: 5px;
+}
+
+</style>
+
+<body>
+
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-6 m-auto">
+                <form action="/admin/add-product" method="POST">
+                    <div class="mb-3">
+                        <label for="" class="form-label">Product Name</label>
+                  <input type="text" name="name" class="form-control" id="" aria-describedby="emailHelp" required autofocus>
+                  <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Price</label>
+                    <input type="text" name="price" class="form-control" onchange="setSubPrice()"  onclick="setSubPrice()" onkeyup="setSubPrice()" onkeydown="setSubPrice()" id="price" required autofocus>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Promo</label>
+                    <input type="text" name="promo" class="form-control" onchange="setSubPrice()"  onclick="setSubPrice()" onkeyup="setSubPrice()" onkeydown="setSubPrice()" id="promo">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Sub-Price</label>
+                    <input type="text" name="subPrice" class="form-control" id="subPrice" readonly>
+                    <small class="text-info"> This is unchangeable, it will auto set.</small>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Product Colors</label>
+                    <input type="text" name="productColors" placeholder="Enter colors HEX-Codes e.g. #376c13, #a484a3..." class="form-control" id="productColors">
+                    <!-- <small class="text-info"> This is unchangeable, it will auto set.</small> -->
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Product Sizes</label>
+                    <input type="text" name="productSizes" placeholder="Enter Sizes e.g. small, xl, lg, 32, 40..." class="form-control" id="productSizes">
+                    <small class="text-info"> For multiple sizes seperate sizes with "<b>,</b>" </small>
+                </div>
+                <div class="mb-3">
+                    <select name="categoryId" required autofocus> 
+                        <% data.forEach( (category, i) => { %>
+                            <option value="<%= category.categoryId %>"> <%= category.name %></option>
+                        <% }) %>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <select name="storeId" required autofocus> 
+                        <% stores.forEach( (category, i) => { %>
+                            <option value="<%= category.storeId %>"> <%= category.storeName %></option>
+                        <% }) %>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Brand</label>
+                    <input type="text" name="brand" class="form-control" id="exampleInputPassword1">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Details</label>
+                    <!-- <input type="text" name="editor1" class="form-control" id="editor1" required autofocus> -->
+                    <textarea class="form-control" name="specs" id="editor1" cols="30" rows="4" required autofocus></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">cover1Image</label>
+                    <input type="file" name="cover1" class="form-control filepond" id="exampleInputPassword1" required autofocus>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">coverImage</label>
+                    <input type="file" name="cover2" class="form-control filepond" id="exampleInputPassword1">
+                </div>
+                                
+                <button type="submit" class="btn btn-primary">Submit</button>
+                
+            </form>
+        </div>
+    </div>
+
+    <div id="container_color_picker">
+        <div class="color">
+          <input type="color" value="#823fc6" id="inputColor">
+          <input type="text" spellcheck="false"placeholder="Color" id="inputText" value="#823fc6">
+          </div>
+        <div class="btn">
+                <button id="btn" id="getHEX" onclick="color()">Get HEX code</button>
+                <button id="btn" id="copy" onclick="copy()">Copy HEX</button>
+        </div>
+        </div>
+        </div>
+
+</div>
+
+<script>
+    CKEDITOR.replace( 'editor1' );
+    document.querySelector("#subPrice").value = 0
+    setSubPrice()
+    function setSubPrice(){
+        console.log("setSubPrice called!!!")
+        price = document.querySelector("#price").value
+        if(price.indexOf(",") != -1){
+           price =price.split(",").join("")
+        }
+        promo = document.querySelector("#promo").value
+        tempPrice = (( (price != '' ? parseInt(price) : 0) / 100) * (promo != "" && promo > 0 && promo <= 100 ? parseInt(promo) : 0))
+        subPrice = document.querySelector("#subPrice").value = (price != '' ? parseInt(price) : parseInt(price)) - tempPrice
+    }
+</script>
+
+<script>
+    /**   F O R   C O L O R   P I C K E R   **/ 
+        function color(){
+        var color = document.getElementById("inputColor").value;
+        document.getElementById("inputText").value = color;
+    }
+
+    function copy() {
+        let hex = document.getElementById("inputText");
+        hex.select();
+        document.execCommand("copy");
+        
+        alert("Copied HEX value");
+    }
+
+</script>
+</body>
