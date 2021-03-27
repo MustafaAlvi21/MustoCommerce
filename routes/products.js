@@ -13,8 +13,25 @@ const categoriesDataModule = require ('../models/categories');
 /* ---------------------------------- */
 /*            Product list            */
 /* ---------------------------------- */
-router.get('/listing', (req, res) => {
-    return res.render('listing', {loginUser: typeof req.user != undefined ? req.user : undefined})
+router.get('/listing', async (req, res) => {
+
+    { products = await productDataModule.aggregate([{ $match: {status:"active"}}]).then( async(data) => {
+        return data    
+    }).catch( (err) => {
+        console.log(err);
+        return res.send(err)
+    })
+        products.forEach( (element, i) => {
+            img = (function() {
+                if ( element.cover1Image != null && element.cover1ImageType != null) {
+                    return `data:${element.cover1ImageType};charset=utf-8;base64,${element.cover1Image.toString('base64')}`
+                }
+            })();
+            products[i].image = img 
+        });
+    }
+
+    return res.render('listing', { products: products, loginUser: typeof req.user != undefined ? req.user : undefined})
 })
 
 

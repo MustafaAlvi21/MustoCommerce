@@ -23,7 +23,33 @@
                             </div>
                         </div>
 
-                        <div class="row" id="productRows">  
+                        <div class="row" id="productRows"> 
+                            
+                            <% products.forEach( (product) => { %>
+                                <div class="col-6 col-md-3 mb-3">
+                                    <div class="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
+                                        <div class="list-card-image">
+                                            <a href="/product-detail/<%=product.productId %>" class="text-dark">
+                                                <% if (product.promo != '' && product.promo != undefined ){ %>
+                                                    <div class="member-plan position-absolute"><span class="badge m-3 badge-danger"><%=product.promo %>%</span></div>  
+                                                <% } %>
+                                                <div class="p-3">
+                                                    <img src="<%=product.image %>" class="img-fluid item-img w-100 mb-3">
+                                                    <h6><%=product.name %></h6>
+                                                    <div class="d-flex align-items-center">
+                                                        <h6 class="price m-0 text-success">
+                                                            Rs. <% if (product.subPrice != '' && product.subPrice != undefined && product.subPrice != 0 && product.subPrice != product.price ){ %>
+                                                                    <s style= "color: red;"><span style= "color: #167D7F;"><%=product.price %></span></s> <%=product.subPrice %> 
+                                                                <% } else { %>
+                                                                    <%=product.price %>
+                                                                <% } %>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div> 
+                            <% }) %>
                             <!-- <div class="col-6 col-md-3 mb-3">
                                 <div class="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
                                     <div class="list-card-image">
@@ -144,11 +170,11 @@
 
 
 </html>
-    <script>
+    <!-- <script>
         window.onload = () => {
             var scriptElement=document.createElement('script');
             scriptElement.type = 'text/javascript';
             scriptElement.src = "../js/products.js";
             document.head.appendChild(scriptElement);    
         }
-    </script>
+    </script> -->

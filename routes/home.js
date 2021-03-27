@@ -50,7 +50,33 @@ router.get('/', async(req, res) => {
         return res.send(err)
     })
 
-    return res.render('home', { featureProduct: featureProduct, categories: categories, loginUser: typeof req.user != "undefined" ? req.user : undefined })
+    //        P i c k   t o d a y   s e c t i o n      
+    { products = await productDataModule.aggregate([{ $sample: { size: 12 }},{ $match: {status:"active"}}]).then( async(data) => {
+        if(data){
+            img = (function() {
+                if ( data[0].cover1Image != null && data[0].cover1ImageType != null) {
+                    return `data:${data[0].cover1ImageType};charset=utf-8;base64,${data[0].cover1Image.toString('base64')}`
+                }
+            })(); 
+            data[0].image = img 
+            return data
+        }     
+        }).catch( (err) => {
+            console.log(err);
+            return res.send(err)
+        })
+
+        products.forEach( (element, i) => {
+            img = (function() {
+                if ( element.cover1Image != null && element.cover1ImageType != null) {
+                    return `data:${element.cover1ImageType};charset=utf-8;base64,${element.cover1Image.toString('base64')}`
+                }
+            })();
+            products[i].image = img 
+        });
+    }
+
+    return res.render('home', { featureProduct: featureProduct, categories: categories, products: products, loginUser: typeof req.user != "undefined" ? req.user : undefined })
 })
 
 /* ---------------------------------- */
