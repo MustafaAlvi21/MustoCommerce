@@ -21,8 +21,8 @@ module.exports = {
                     },   
             });
             const userId = data._id;
-            // const url = 'https://moo-commerce.herokuapp.com/verify'
-            const url = 'http://localhost:4000/verify'
+            const url = 'https://mustocommerce.herokuapp.com//verify'
+            // const url = 'http://localhost:4000/verify'
 
             // send mail with defined transport object
             let info = await transporter.sendMail({

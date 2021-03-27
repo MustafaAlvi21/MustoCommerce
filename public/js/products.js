@@ -19,7 +19,8 @@ async function filterApi() {
     data1.sortBy = getRadioValueByCost();
     data1.MinPrice = document.getElementsByName("MinPrice")[0].value;
     data1.MaxPrice = document.getElementsByName("MaxPrice")[0].value;
-    url = "http://localhost:4000/"
+    // url = "http://localhost:4000/"
+    url = "https://mustocommerce.herokuapp.com/"
     await fetch(url+ 'listing-api/014520523001',{
         method: "POST",
         body: JSON.stringify(data1),

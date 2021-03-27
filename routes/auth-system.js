@@ -98,8 +98,8 @@ router.post('/forget-password', u_loginPage, function(req, res){
       });
       const userId = data._id;
 
-    //   const url = 'https://moo-commerce.herokuapp.com/new-password'
-      const url = 'http://localhost:4000/new-password'
+      const url = 'https://mustocommerce.herokuapp.com//new-password'
+      // const url = 'http://localhost:4000/new-password'
 
       let info = await transporter.sendMail({
         from: '"Fred Foo 👻" <foo@example.com>', // sender address
