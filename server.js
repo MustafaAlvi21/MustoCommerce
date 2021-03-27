@@ -16,7 +16,7 @@ const jsonParser = bodyParser.json();
 const flash = require('connect-flash');
 const session = require ('express-session');
 const passport = require('passport')
-const favicon = require('serve-favicon');
+// const favicon = require('serve-favicon');
 let back = require('express-back');
 const sha256 = require('sha256')
 require('./config/passport')(passport);
