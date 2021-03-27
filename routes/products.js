@@ -1,6 +1,6 @@
 const express  = require('express')
 const router  = express.Router();
-const cartDataModel = require('../Extras/models/cart');
+// const cartDataModel = require('../Extras/models/cart');
 const productDataModule = require ('../models/products');
 const categoriesDataModule = require ('../models/categories');
 // const { ensureAuthenticated } = require('../config/auth')
