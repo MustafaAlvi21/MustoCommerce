@@ -1,0 +1,85 @@
+<!-- Register form validation error msgs -->
+<% if (typeof errors != 'undefined' ) { %>
+    <% errors.forEach(function(error) { %>
+        
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <center>
+            <strong> <%= error.msg %> </strong>   
+          </center> 
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+    <% }) %>
+<% } %>
+<!-- --------------------------------------- -->
+
+<% if(success_msg != ''){  %>
+
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <center>
+            <strong> <%= success_msg %> </strong> 
+          </center> 
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+<% }  %>
+
+<% if(error_msg != ''){  %>
+
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <center>
+        <strong> <%= error_msg %> </strong>   
+      </center> 
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+<% }  %>
+
+<!-- Login form validation error msgs -->
+<% if(error != ''){  %>
+
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <center>
+        <strong> <%= error %> </strong>   
+      </center> 
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+<% }  %>
+<!-- --------------------------------------- -->
+
+<!-- forget mail msgs -->
+<% if(typeof warning != 'undefined'){  %>
+
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <center>
+        <strong> <%= warning %> </strong>   
+      </center> 
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+<% }  %>
+<!-- --------------------------------------- -->
+
+<!-- forget mail msgs -->
+<% if(typeof msg != 'undefined'){  %>
+
+  <h2>
+      <center>
+          <strong style="color: #969696;"> <%= msg %> </strong>   
+        </center> 
+      </h2>
+
+
+<% }  %>
+<!-- --------------------------------------- -->

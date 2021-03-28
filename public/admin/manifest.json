@@ -1,0 +1,14 @@
+{
+    "short_name": "Admin Panel",
+    "name": "Admin Panel",
+    "icons": [{
+        "src": "/assets/img/logo.JPG",
+        "type": "image/jpeg",
+        "sizes": "288x258"
+    }, {
+        "src": "/assets/img/logo.JPG",
+        "type": "image/jpeg",
+        "sizes": "288x258"
+    }],
+    "display": "fullscreen"
+}

@@ -7,6 +7,19 @@ const sha256 = require('sha256');
 
 
 /* ---------------------------------- */
+/*           ALL products             */
+/* ---------------------------------- */
+router.get("/products", async (req, res) => {
+    try {
+        products = await productDataModule.find({})
+        return res.render("admin/products", { title: "Admin Product", data: products, loginUser: typeof req.user != "undefined" ? req.user : "guest", layout: "admin/adminLayout/layout" })
+    } catch (error) {
+        return res.json({ "error": error })
+    }
+});
+
+
+/* ---------------------------------- */
 /*           Add products             */
 /* ---------------------------------- */
 router.get('/add-products', async (req, res) => {
@@ -24,8 +37,8 @@ router.get('/add-products', async (req, res) => {
         console.log(err);
         return res.send(err)
     });
-
-    return res.render('add-products-admin', { title: "Admin-Add Product", data: categories, stores: stores, loginUser: typeof req.user != "undefined" ? req.user : undefined})
+    
+    return res.render('admin/add-products-admin', { title: "Admin-Add Product", data: categories, stores: stores, loginUser: typeof req.user != "undefined" ? req.user : undefined, layout: "admin/adminLayout/layout"})
 })
 
 router.post('/add-product', async(req, res)=> {

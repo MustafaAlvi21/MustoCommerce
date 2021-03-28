@@ -1,0 +1,99 @@
+ <body id="page-top">
+    
+    <div id="wrapper">
+
+        <%- include('./adminPartials/menuBar.ejs') %>
+
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content" style="background-color: #f6f7fb;">
+
+                <!--  sidebar -->
+                    <%- include('./adminPartials/sideBar.ejs') %>
+                <!--  sidebar end -->
+
+                <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                    <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                        <p style="text-align: right; float: right;"> <%= loginUser.name %> lll </p>
+                    </div>
+                </nav>
+                
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col">
+                            <div class="d-sm-flex justify-content-between align-items-center mb-4" style="padding-top: 0px;">
+                                <h1 class="text-dark mb-0">Dashboard</h1>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8 col-sm-12">
+                                    <h2>Products</h2>
+                                </div>
+                                <div class="col-md-4 col-sm-12">
+                                    <div class="row">
+                                        <div class="d-xl-flex" style="margin-top: 0px;margin-right: 5px;margin-left: 5px; justify-content: right;">
+                                            <a href="./add-products" class="btn btn-primary btn-sm  d-sm-inline-block" role="button" style="padding: 10px;padding-right: 20px;padding-bottom: 10px;padding-left: 20px;margin-right: 5px;margin-left: 5px;color: rgb(255,255,255);"><strong>+ Create New</strong></a>
+                                            <a class="btn btn-primary btn-sm  d-sm-inline-block" role="button" href="javascript:sidebarOpen()" style="padding: 10px;padding-right: 20px;padding-bottom: 10px;padding-left: 20px;margin-left: 5px;margin-right: 5px;">Filter<br></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="table-responsive" style="padding: 25px;background-color: #ffffff;">
+                                <table class="table">
+                                    <thead style="background-color: #f6f7fb;">
+                                        <tr>
+                                            <th>Image</th>
+                                            <th>Id</th>
+                                            <th>productId</th>
+                                            <th>Status</th>
+                                            <th>Name</th>
+                                            <th>Price</th>
+                                            <th>Promo</th>
+                                            <th>Sub-Price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="background-color: #ffffff;">
+                                        <% data.forEach( (item, i) => { %>
+                                            <tr style="background-color: #ffffff;">
+                                                <td style="width: 100px;"> <img src="<%= item.cover1ImagePath %>" alt="img <%= i %>" class="img-fluid"> </td>
+                                                <td> <%= item._id %> </td>
+                                                <td> <%= item.productId %> </td>
+                                                <td> <%= item.status %> </td>
+                                                <td> <%= item.name %> </td>
+                                                <td> <%= item.price %> </td>
+                                                <td> <%= item.promo %> </td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-primary" data-toggle="dropdown" aria-expanded="false" type="button"><i class="fa fa-angle-double-up" aria-hidden="true"></i> </button>
+                                                        <div class="dropdown-menu" role="menu">
+                                                            <a class="dropdown-item" role="presentation" href="#">First Item</a>
+                                                            <a class="dropdown-item" role="presentation" href="#">Second Item</a>
+                                                            <a class="dropdown-item" role="presentation" href="#">Third Item</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        <% }) %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright"><span>Copyright © Brand 2021</span></div>
+                </div>
+            </footer>
+
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>

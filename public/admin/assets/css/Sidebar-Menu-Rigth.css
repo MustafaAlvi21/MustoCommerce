@@ -1,0 +1,21 @@
+
+/*  for small screens */
+
+.sidebar1 {
+  height: 100vh;
+  max-width: 500px;
+  background-color: #f2f2f2;
+  z-index: 100;
+  overflow: auto;
+  float: right !important;
+  display: inline;
+  box-shadow: 10px 10px 5px grey;
+}
+
+#sidebar-1 {
+  width: 20px;
+  height: 100%;
+  float: right;
+  background-color: #cccccc;
+}
+

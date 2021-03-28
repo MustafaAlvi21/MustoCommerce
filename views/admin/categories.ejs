@@ -1,0 +1,193 @@
+ <body id="page-top">
+    
+    <div id="wrapper">
+
+        <%- include('./adminPartials/menuBar.ejs') %>
+
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content" style="background-color: #f6f7fb;">
+
+                <!--  sidebar -->
+                <!--  sidebar end -->
+
+                <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                    <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                        <p style="text-align: right; float: right;"> <%= loginUser.name %> lll </p>
+                    </div>
+                </nav>
+                
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col">
+                            <div class="d-sm-flex justify-content-between align-items-center mb-4" style="padding-top: 0px;">
+                                <h1 class="text-dark mb-0">Dashboard</h1>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8 col-sm-12">
+                                    <h2>Categories</h2>
+                                </div>
+                                <div class="col-md-4 col-sm-12">
+                                    <div class="row">
+                                        <div class="d-xl-flex" style="margin-top: 0px;margin-right: 5px;margin-left: 5px; justify-content: right;">
+
+                                            <!-- Button trigger modal -->
+                                            <a href="#" data-toggle="modal" data-target="#exampleModal1" class="btn btn-primary btn-sm  d-sm-inline-block" role="button" style="padding: 10px;padding-right: 20px;padding-bottom: 10px;padding-left: 20px;margin-right: 5px;margin-left: 5px;color: rgb(255,255,255);"><strong>+ Create New</strong></a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="table-responsive" style="padding: 25px;background-color: #ffffff;">
+
+                                <%- include('./adminPartials/messages.ejs') %>
+
+                                <table class="table">
+                                    <thead style="background-color: #f6f7fb;">
+                                        <tr>
+                                            <th>Category Id</th>
+                                            <th>Name</th>
+                                            <th>Sub Name</th>
+                                            <th>Status</th>
+                                            <th>Options</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="background-color: #ffffff;">
+                                        <% data.forEach( (item, i) => { %>
+                                            <tr style="background-color: #ffffff;">
+                                                <td> <%= item.categoryId %> </td>
+                                                <td> <%= item.name %> </td>
+                                                <td> <%= item.subName %> </td>
+                                                <td> <%= item.status %> </td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-primary" data-toggle="dropdown" aria-expanded="false" type="button"><i class="fa fa-angle-double-up" aria-hidden="true"></i> </button>
+                                                        <div class="dropdown-menu" role="menu">
+                                                            <a class="dropdown-item" role="presentation"  data-toggle="modal" data-target="#UpdateCategoryModal" href="#" onclick="getId()">Update <%= i %></a>
+                                                        <% if (item.status == "active") { %>
+                                                            <a class="dropdown-item" role="presentation" href="./update-category-status/<%= item.categoryId %>/remove">Remove</a>
+                                                        <% } else { %> 
+                                                            <a class="dropdown-item" role="presentation" href="./update-category-status/<%= item.categoryId %>/active">Active</a>
+                                                        <% } %>    
+                                                        
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        <% }) %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <!-- Category Form -->
+                
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+
+                        <form action="./add-category" method="post">
+
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add New Category</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                        
+                            <!-- <form action="/add-category" method="post"> -->
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Category Name</label>
+                                    <input type="text" class="form-control" name="name">
+                                </div>
+                                <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+                            <!-- </form> -->
+
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Add Category</button>
+                        </div>
+
+                    </form>
+
+                    </div>
+                    </div>
+                </div>
+                
+            <!-- Category Form end -->
+
+            <!-- Update Category -->
+                
+                <!-- Modal -->
+                <div class="modal fade" id="UpdateCategoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+
+                        <form action="./update-category/categoryId" method="post" id="updateForm">
+
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add New Category</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                        
+                            <!-- <form action="/add-category" method="post"> -->
+                                <div class="form-group" hidden>
+                                    <label for="exampleInputEmail1">Category Id</label>
+                                    <input type="text" class="form-control" id="id123" name="categoryId">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Category Name</label>
+                                    <input type="text" class="form-control" name="name">
+                                </div>
+
+                            <!-- </form> -->
+
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Update Category</button>
+                        </div>
+
+                    </form>
+
+                    </div>
+                    </div>
+                </div>
+                
+            <!-- Update Category end -->
+
+
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright"><span>Copyright © Brand 2021</span></div>
+                </div>
+            </footer>
+
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
+
+
+        <script>
+            function getId() {
+                
+                // console.log(event.target.parentElement.parentElement.parentElement.parentElement.firstElementChild.innerText);
+                id = event.target.parentElement.parentElement.parentElement.parentElement.firstElementChild.innerText;
+                
+                
+                document.getElementById("updateForm").action = "./update-category/" + id;
+            }
+        </script>
