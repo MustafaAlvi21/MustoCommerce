@@ -229,8 +229,8 @@ async function cashOnDelivery(){
 async function placeOrder(orderData){
     console.log("Placing order")
 
-    await fetch('http://localhost:4000/place-order-api-10590058', {
-    // await fetch('https://mustocommerce.herokuapp.com/place-order-api-10590058', {
+    // await fetch('http://localhost:4000/place-order-api-10590058', {
+    await fetch('https://mustocommerce.herokuapp.com/place-order-api-10590058', {
         method: "POST",
         body: JSON.stringify(orderData),
         headers: {"Content-type": "application/json; charset=UTF-8"}
@@ -242,8 +242,8 @@ async function placeOrder(orderData){
         if(json.success == true){
             localStorage.clear()
             getCartData()
-            window.location = 'http://localhost:4000/order-success/' + json.orderId
-            // window.location = 'https://mustocommerce.herokuapp.com/order-success/' + json.orderId
+            // window.location = 'http://localhost:4000/order-success/' + json.orderId
+            window.location = 'https://mustocommerce.herokuapp.com/order-success/' + json.orderId
         }
     })
     .catch(err => 
