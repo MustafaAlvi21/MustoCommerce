@@ -73,7 +73,7 @@ router.get('/verify/:id', u_loginPage, function(req, res){
 /*  ---------------------------------------------  */
 router.get('/forget-password', u_loginPage, function(req, res){
     return res.render('forgetPassword', {
-        title: 'Moo commerce - Forget Password',
+        title: '4storez - Forget Password',
         msg: '',
         loginUser: undefined,
     })
@@ -98,11 +98,11 @@ router.post('/forget-password', u_loginPage, function(req, res){
       });
       const userId = data._id;
 
-      const url = 'https://mustocommerce.herokuapp.com//new-password'
+      const url = 'https://mustocommerce.herokuapp.com/new-password'
       // const url = 'http://localhost:4000/new-password'
 
       let info = await transporter.sendMail({
-        from: '"Fred Foo 👻" <foo@example.com>', // sender address
+        from: '"4storez 👻" ', // sender address
         to: req.body.email, // list of receivers
         subject: "Forget password link", // Subject line
         // text: "Through below link you can reset your password", // plain text body
@@ -169,7 +169,7 @@ router.post('/forget-password', u_loginPage, function(req, res){
         <!-- Password Reset heading -->
         <div class="pb-10">
             <h1 class="heading-pr">Password Reset</h1>
-            <p class="para">Seems like you forget your password for Moo commerce. If this is true, click below to reset your password.</p>
+            <p class="para">Seems like you forget your password for 4storez. If this is true, click below to reset your password.</p>
         </div>
         <!-- button -->
         <div class="btnBox">
@@ -311,9 +311,14 @@ router.post('/sign-up', u_loginPage, (req, res)=>{
     } else {
         userDataModel.findOne({email : req.body.email}).then( data => {
             if (data) {
-              //   U s e r   o r   E m a i l   i s   e x i s t 
+
+            //   U s e r   o r   E m a i l   i s   e x i s t 
             errors.push({ msg : 'Email is already registered'});
-            return res.json({ errors, fullname, email, password, loginUser: undefined })
+            // req.flash('errors', "errors.msg")
+            // return res.redirect("./sign-up");
+            
+            return res.render("signup", { errors, fullname, phone, loginUser: undefined })
+            
             } else {
                 const user = new userDataModel({
                     fullname : fullname,
@@ -331,11 +336,18 @@ router.post('/sign-up', u_loginPage, (req, res)=>{
                     user.encryptedPassword = hash;
                     //            S a v e   u s e r   o r   c r e a t e   u s e r  
                     user.save().then( user => {
-                        // console.log('user -- ' + user)
-                        req.flash('success_msg', 'Registered successfully.')
-                        return res.json({"success_msg" : "Registered successfully."});
+                        console.log('user -- ' + user)
+                        req.flash('success_msg', "Registered successfully")
+                        // return res.render("signup", { success_msg })
+            
+                        // req.flash('success_msg', 'Registered successfully.')
+                        return res.redirect("/sign-in");
                       })               
-                      .catch(err => console.log(err) );
+                      .catch( (err) => {
+                        console.log(err) 
+                        req.flash('errors', "errors")
+                        return res.redirect("/sign-up");
+                      });
                     }) 
                 )
             }

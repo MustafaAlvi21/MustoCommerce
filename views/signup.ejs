@@ -1,6 +1,6 @@
 <body class="fixed-bottom-padding">
 
-    <section class="osahan-main-body">
+    <section class="osahan-main-body mb-5">
         <div class="container">
             <div class="row d-flex my-5 align-items-center justify-content-center vh-100">
                 <div class="col-lg-6 pl-lg-5">
@@ -11,7 +11,10 @@
                         
                             <p id="msgSection"></p>
                         
-                            <form>
+                            <form action="./sign-up" method="POST">
+
+                                <%- include('./partials/messages.ejs') %>
+
                                 <div class="form-group">
                                     <label for="exampleInputName1">Name</label>
                                     <input name="name" type="text" value="<%= typeof fullname != 'undefined' ? fullname  : '' %>" required autofocus  placeholder="Enter Name" class="form-control" aria-describedby="emailHelp">
@@ -39,16 +42,17 @@
                                     <small id="msg1" style="display: none; color: red;">Password must be match.</small id="msg1">
                                     <small id="msg2" style="display: none; color: #167D7F;">Good</small>
                                 </div>
-                                <button type="button" onclick="signUpForm()" id="submitBtn" class="btn btn-success rounded btn-lg btn-block">Create Account</button>
+                                <button type="submit" id="submitBtn" class="btn btn-success rounded btn-lg btn-block">Create Account</button>
                             </form>
                             <p class="text-muted text-center small py-2 m-0">or</p>
-                            <a href="verification.html" class="btn btn-dark btn-block rounded btn-lg btn-apple"> <i class="icofont-brand-apple mr-2"></i> Sign up with Apple </a>
-                            <a href="verification.html" class="btn btn-light border btn-block rounded btn-lg btn-google"> <i class="icofont-google-plus text-danger mr-2"></i> Sign up with Google </a>
+                            <!-- <a href="verification.html" class="btn btn-dark btn-block rounded btn-lg btn-apple"> <i class="icofont-brand-apple mr-2"></i> Sign up with Apple </a>
+                            <a href="verification.html" class="btn btn-light border btn-block rounded btn-lg btn-google"> <i class="icofont-google-plus text-danger mr-2"></i> Sign up with Google </a> -->
                             <p class="text-center mt-3 mb-0"><a href="/sign-in" class="text-dark">Already have an account! Sign in</a></p>
                         </div>
                     </div>
                 </div>
             </div>
+            <br>    
         </div>
     </section>
   

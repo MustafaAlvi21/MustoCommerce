@@ -75,7 +75,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-8 col-sm-12">
-                                    <h2>Categories</h2>
+                                    <h2>Stores</h2>
                                 </div>
                                 <div class="col-md-4 col-sm-12">
                                     <div class="row">
@@ -99,31 +99,33 @@
                                 <table class="table">
                                     <thead style="background-color: #f6f7fb;">
                                         <tr>
-                                            <th>Image</th>
-                                            <th>Category Id</th>
-                                            <th>Name</th>
-                                            <th>Sub Name</th>
+                                            <th>Id</th>
+                                            <th>Store Name</th>
+                                            <th>Owner Name</th>
+                                            <th>Contact</th>
                                             <th>Status</th>
-                                            <th>Options</th>
+                                            <th>Address</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody style="background-color: #ffffff;">
                                         <% data.forEach( (item, i) => { %>
                                             <tr style="background-color: #ffffff;">
-                                                <td style="width: 50px;"> <img src="<%= item.cover1ImagePath %>" class="img-fluid" alt="img-<%= i %>"> </td>
-                                                <td> <%= item.categoryId %> </td>
-                                                <td> <%= item.name %> </td>
-                                                <td> <%= item.subName %> </td>
+                                                <td> <%= item._id %> </td>
+                                                <td> <%= item.storeName %> </td>
+                                                <td> <%= item.owner %> </td>
+                                                <td> <%= item.contact %> </td>
                                                 <td> <%= item.status %> </td>
+                                                <td> <%= item.address1 %> </td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <button class="btn btn-primary" data-toggle="dropdown" aria-expanded="false" type="button"><i class="fa fa-angle-double-up" aria-hidden="true"></i> </button>
                                                         <div class="dropdown-menu" role="menu">
                                                             <a class="dropdown-item" role="presentation"  data-toggle="modal" data-target="#UpdateCategoryModal" href="#" onclick="getId()">Update </a>
-                                                        <% if (item.status == "active") { %>
-                                                            <a class="dropdown-item" role="presentation" href="./update-category-status/<%= item.categoryId %>/remove">Remove</a>
+                                                        <% if ( item.status == "active") { %>
+                                                            <a class="dropdown-item" role="presentation" href="./update-store-status/<%= item._id %>/remove">Remove</a>
                                                         <% } else { %> 
-                                                            <a class="dropdown-item" role="presentation" href="./update-category-status/<%= item.categoryId %>/active">Active</a>
+                                                            <a class="dropdown-item" role="presentation" href="./update-store-status/<%= item._id %>/active">Active</a>
                                                         <% } %>    
                                                         
                                                         </div>
@@ -149,34 +151,38 @@
                     <div class="modal-dialog" role="document">
                     <div class="modal-content">
 
-                        <form action="./add-category" method="post">
+                        <form action="./add-store" method="post">
 
                         <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Add New Category</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Add New Store</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                         </div>
                         <div class="modal-body">
                         
-                            <!-- <form action="/add-category" method="post"> -->
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Category Name</label>
-                                    <input type="text" class="form-control" name="name">
+                                    <label for="exampleInputEmail1">Stores Name</label>
+                                    <input type="text" class="form-control" name="storeName" required>
                                 </div>
-
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1" class="form-label">coverImage</label>
-                                    <input type="file" name="cover1" class="form-control filepond" id="exampleInputPassword1">
+                                    <label for="exampleInputEmail1">Owner Name</label>
+                                    <input type="text" class="form-control" name="owner" required>
                                 </div>
-                
-                                <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
-                            <!-- </form> -->
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Contact Numbers</label>
+                                    <input type="text" class="form-control" name="contact" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Address</label>
+                                    <input type="text" class="form-control" name="address1" required>
+                                </div>
 
                         </div>
+
                         <div class="modal-footer" style="display: block;">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Add Category</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Add Store</button>
                         </div>
 
                     </form>
@@ -187,17 +193,17 @@
                 
             <!-- Category Form end -->
 
-            <!-- Update Category -->
+            <!-- Update Store -->
                 
                 <!-- Modal -->
                 <div class="modal fade" id="UpdateCategoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                     <div class="modal-content">
 
-                        <form action="./update-category/categoryId" method="post" id="updateForm">
+                        <form action="./update-store/storeId" method="post" id="updateForm">
 
                         <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Add New Category</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Update Store</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -206,12 +212,12 @@
                         
                             <!-- <form action="/add-category" method="post"> -->
                                 <div class="form-group" hidden>
-                                    <label for="exampleInputEmail1">Category Id</label>
+                                    <label for="exampleInputEmail1">Store Id</label>
                                     <input type="text" class="form-control" id="id123" name="categoryId">
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Category Name</label>
-                                    <input type="text" class="form-control" name="name">
+                                    <label for="exampleInputEmail1">Store Name</label>
+                                    <input type="text" class="form-control" name="storeName" required>
                                 </div>
 
                             <!-- </form> -->
@@ -219,7 +225,7 @@
                         </div>
                         <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Update Category</button>
+                        <button type="submit" class="btn btn-primary">Update Store</button>
                         </div>
 
                     </form>
@@ -242,11 +248,7 @@
 
         <script>
             function getId() {
-                
-                // console.log(event.target.parentElement.parentElement.parentElement.parentElement.firstElementChild.innerText);
-                id = event.target.parentElement.parentElement.parentElement.parentElement.children[1].innerText;
-                
-                
-                document.getElementById("updateForm").action = "./update-category/" + id;
+                id = event.target.parentElement.parentElement.parentElement.parentElement.children[0].innerText;
+                document.getElementById("updateForm").action = "./update-store/" + id;
             }
         </script>

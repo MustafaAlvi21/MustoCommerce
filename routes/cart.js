@@ -79,43 +79,90 @@ router.post('/place-order-api-10590058', async (req, res) => {
     // let orderTracker = `ODR-${Date.now()}`
     let totalCost = 0;
     let userData = "";
-    let data = [...ProductList];
-    productsIDs = data.map(obj => { return obj.Id });
-
-    productsData = await productDataModule.find({productId: {$in : productsIDs }}).then(data => {
-        return data
-    }).catch(err => {
-        console.log(err);
-        return res.json({error: err})
-    })
-
-    productsData.forEach((element,i) => {
-        totalCost += element.subPrice * ProductList[i].quantity
+    
+    // checking all data is valid or not
+    isUserDetailsValid = false;
+    isProductListValid = false;
+    isPaymentMethodValid = false;
+    Object.entries(UserDetails).forEach( (element, i) => {
+        if(element[1] != ""){
+            console.log(element[1]);
+            isUserDetailsValid = true;
+        }else{
+            console.log("not valid");
+            isUserDetailsValid = false;
+        }
     });
+    if(ProductList != null ){
+        console.log("valid");
+        isProductListValid = true;
+    }else{
+        console.log("not valid");
+        isProductListValid = false;
+    }
 
-    if(typeof req.user != "undefined"){
-        // user.userId = req.user._id
-        UserDetails.userId = req.user._id;
-        userData = UserDetails;
-    } else {
-        UserDetails.userId = "guest-"+ userId;
-        userData = UserDetails;
+    if(paymentMethod.method == "Cash On Delivery" ){
+        console.log("valid Delivery");
+        isProductListValid = true;
+    }else{
+        console.log("not valid Delivery");
+        isProductListValid = false;
+    }
+
+    if(isUserDetailsValid == false){
+         return res.json( { "error" : "Your entered details are worng or missing any data, try again with complete and valid details." } )
+        // return res.redirect("/cart"); 
+    } else if ( isProductListValid == false){
+         return res.json( { "error" : "Your cart is empty, add some products in cart." } );
+        // return res.redirect("/cart"); 
+    } else if(isPaymentMethodValid == false){
+         return res.json( { "error" : "There is an error in your payment method or details." } )
+        // return res.redirect("/cart"); 
     }
     
-    console.log(userData);
+    // console.log(UserDetails);
+    // console.log( ProductList);
+    // console.log(paymentMethod.method);
+    // let data = [...ProductList];
+
+    // console.log(isDataValid);
+
+    productsIDs = data.map(obj => { return obj.Id });
+
+    // productsData = await productDataModule.find({productId: {$in : productsIDs }}).then(data => {
+    //     return data
+    // }).catch(err => {
+    //     console.log(err);
+    //     return res.json({error: err})
+    // })
+
+    // productsData.forEach((element,i) => {
+    //     totalCost += element.subPrice * ProductList[i].quantity
+    // });
+
+    // if(typeof req.user != "undefined"){
+    //     // user.userId = req.user._id
+    //     UserDetails.userId = req.user._id;
+    //     userData = UserDetails;
+    // } else {
+    //     UserDetails.userId = "guest-"+ userId;
+    //     userData = UserDetails;
+    // }
     
-    let order = await new orderDataModule({
-        user : userData,
-        products : productsData, 
-        paymentMethod : paymentMethod, 
-        totalPrice : totalCost
-    }).save().then(data => {
-        console.log("Order Placed")
-        return res.json({msg: "Order Placed.", success: true, orderId: data.orderId})
-    }).catch(err => {
-        console.log(err);
-        return res.json({msg: err, success: false})
-    })
+    // console.log(userData);
+    
+    // let order = await new orderDataModule({
+    //     user : userData,
+    //     products : productsData, 
+    //     paymentMethod : paymentMethod, 
+    //     totalPrice : totalCost
+    // }).save().then(data => {
+    //     console.log("Order Placed")
+    //     return res.json({msg: "Order Placed.", success: true, orderId: data.orderId})
+    // }).catch(err => {
+    //     console.log(err);
+    //     return res.json({msg: err, success: false})
+    // })
 
 })
 

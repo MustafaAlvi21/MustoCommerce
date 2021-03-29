@@ -37,16 +37,19 @@
 
 function addToCart(itemId) {
     let product = {}
+    p_color =  (typeof radioColorValue() != "undefined" && radioColorValue() != null ? radioColorValue() : "no color")
+    p_size =  (typeof productSize() != "undefined" && productSize() != null ? productSize() : "no size")
+    console.log(p_size);
     if(itemId[0] == "+"){
         id1 = itemId.split("+")
         product = {
-            Id : id1[1], quantity: 1
+            Id : id1[1], quantity: 1, p_color, p_size
         }
     } 
     if(itemId[0] == "-"){
         id1 = itemId.split("-")
         product = {
-            Id : id1[1], quantity: -1
+            Id : id1[1], quantity: -1, p_color, p_size
         }
     } 
 
@@ -60,11 +63,14 @@ function addToCart(itemId) {
         if(value.Id == product.Id ){
             // alert("value.quantity" + value.quantity)
             if(parseInt(value.quantity + product.quantity) >= 0){
-                // console.log("found")
+                console.log("found")
                 // console.log(key)
                 a[key].quantity = parseInt(value.quantity + product.quantity)
+                a[key].p_color =  (typeof radioColorValue() != "undefined" && radioColorValue() != null ? radioColorValue() : "no color") 
+                a[key].p_size =  (typeof productSize() != "undefined" && productSize() != null ? productSize() : "no size") 
                 localStorage.setItem('product', JSON.stringify(a)); 
-                // alert('Added to cart')   
+                document.getElementById("p_quantity0").value = a[key].quantity;
+                alert('Added to cart')   
                 return true;
             }else{
                 return true;
@@ -72,5 +78,23 @@ function addToCart(itemId) {
         }
     }
     a.push(product)
+    
+    // document.getElementById("p_quantity0").value = ""
     return localStorage.setItem('product', JSON.stringify(a));            
+}
+
+
+
+
+function radioColorValue() {
+    var ele = document.getElementsByName('color');
+      
+    for(i = 0; i < ele.length; i++) {
+        if(ele[i].checked)  return ele[i].value
+    }
+}
+function productSize() {
+    var ele = document.getElementById('inputGroupSelect01');
+ 
+    return ele.value;
 }

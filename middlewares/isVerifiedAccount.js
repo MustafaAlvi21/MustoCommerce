@@ -21,14 +21,14 @@ module.exports = {
                     },   
             });
             const userId = data._id;
-            const url = 'https://mustocommerce.herokuapp.com//verify'
+            const url = 'https://mustocommerce.herokuapp.com/verify'
             // const url = 'http://localhost:4000/verify'
 
             // send mail with defined transport object
             let info = await transporter.sendMail({
-              from: '"Moo commerce 👻" <foo@example.com>', // sender address
+              from: '"4storez 👻" <foo@example.com>', // sender address
               to: req.body.email, // list of receivers
-              subject: "Moo commerce account verification", // Subject line
+              subject: "4storez account verification", // Subject line
               // text: "Hello world 123?", // plain text body
               // html: "<h3>Account Verification link: </h3> "+ `${url}`+"/"+`${userId}`, // html body
               html: `
@@ -93,7 +93,7 @@ module.exports = {
               <!-- Password Reset heading -->
               <div class="pb-10">
                   <h1 class="heading-pr">Verify Your Account</h1>
-                  <p class="para">Seems like you newly created account for Moo commerce. If this is true, click below to verify account.</p>
+                  <p class="para">Seems like you newly created account for 4storez. If this is true, click below to verify account.</p>
               </div>
               <!-- button -->
               <div class="btnBox">

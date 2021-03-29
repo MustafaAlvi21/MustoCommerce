@@ -17,20 +17,36 @@ router.get("/categories", async (req, res) => {
 });
 
 
-router.post('/add-category', (req, res) => {
+router.post('/add-category', async (req, res) => {
     categoryId = sha256(JSON.stringify(Date.now()))
     subName = (req.body.name).split(' ').join('-').toLowerCase(); 
-    new categoryDataModule({
+    const category = new categoryDataModule({
         categoryId: categoryId,
         name : req.body.name,
         subName : subName
-    }).save().then(()=> {
-        return res.redirect("/admin/categories")
-    }).catch(err => {
-        console.log(err);
-        if(err.code === 11000) return res.json({"error code": err.code, msg: "Category is already added..."})
-        return res.send(err)
     })
+    
+    saveCover(category, req.body.cover1)
+    try {
+        const newBook = await category.save()
+        req.flash("success_msg", "Category added successfully")
+        return res.redirect("/admin/categories")
+    } catch(err) {
+        console.log(err);
+        return res.send(err)
+    }
+
+    function saveCover(book, cover1Encoded) {
+      if (cover1Encoded == null || cover1Encoded  == '') return
+      const cover1 = JSON.parse(cover1Encoded)
+      console.log('yes 1')
+      if (cover1 != null ) {
+        console.log('yes 2')
+        book.cover1Image = new Buffer.from(cover1.data, 'base64')
+        book.cover1ImageType = cover1.type
+      }
+    }
+
 })
 
 

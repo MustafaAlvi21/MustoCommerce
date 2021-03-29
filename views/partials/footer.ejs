@@ -169,16 +169,14 @@
                                             </div>
                                             <button type="submit" class="btn btn-success btn-lg rounded btn-block">Sign in</button>
                                         </form>
-                                        <p class="text-muted text-center small m-0 py-3">or</p>
-                                        <a href="verification.html"
-                                            class="btn btn-dark btn-block rounded btn-lg btn-apple">
-                                            <i class="icofont-brand-apple mr-2"></i> Sign up with Apple
-                                        </a>
-                                        <a href="verification.html"
+                                         <p class="text-muted text-center small m-0 py-3">or</p>
+                                        <a href="/forget-password"
+                                            class="btn btn-dark btn-block rounded btn-lg btn-apple"> Forget Password? Recover now </a>
+                                     <!--   <a href="verification.html"
                                             class="btn btn-light border btn-block rounded btn-lg btn-google">
                                             <i class="icofont-google-plus text-danger mr-2"></i> Sign up with Google
-                                        </a>
-                                        <p class="text-center mt-3 mb-0"><a href="/forget-password" class="text-dark">Forget Password? Recover now</a></p>
+                                        </a> -->
+                                        <!-- <p class="text-center mt-3 mb-0"><a href="/forget-password" class="text-dark">Forget Password? Recover now</a></p> -->
                                     </div>
                                 </div>
                             </div>
@@ -192,7 +190,7 @@
                                     
                                         <p id="msgSection"></p>
                                     
-                                        <form>
+                                        <form action="./sign-up" method="POST">
                                             <div class="form-group">
                                                 <label for="exampleInputName1">Name</label>
                                                 <input name="name" type="text" value="<%= typeof fullname != 'undefined' ? fullname  : '' %>" required autofocus  placeholder="Enter Name" class="form-control" aria-describedby="emailHelp">
@@ -220,11 +218,11 @@
                                                 <small id="msg1" style="display: none; color: red;">Password must be match.</small id="msg1">
                                                 <small id="msg2" style="display: none; color: #167D7F;">Good</small>
                                             </div>
-                                            <button type="button" onclick="signUpForm()" id="submitBtn" class="btn btn-success rounded btn-lg btn-block">Create Account</button>
+                                            <button type="submit"id="submitBtn" class="btn btn-success rounded btn-lg btn-block">Create Account</button>
                                         </form>
-                                        <p class="text-muted text-center small py-2 m-0">or</p>
-                                        <a href="verification.html" class="btn btn-dark btn-block rounded btn-lg btn-apple"> <i class="icofont-brand-apple mr-2"></i> Sign up with Apple </a>
-                                        <a href="verification.html" class="btn btn-light border btn-block rounded btn-lg btn-google"> <i class="icofont-google-plus text-danger mr-2"></i> Sign up with Google </a>
+                                        <!-- <p class="text-muted text-center small py-2 m-0">or</p> -->
+                                        <!-- <a href="verification.html" class="btn btn-dark btn-block rounded btn-lg btn-apple"> <i class="icofont-brand-apple mr-2"></i> Sign up with Apple </a>
+                                        <a href="verification.html" class="btn btn-light border btn-block rounded btn-lg btn-google"> <i class="icofont-google-plus text-danger mr-2"></i> Sign up with Google </a> -->
                                     </div>
                                 </div>
                             </div>

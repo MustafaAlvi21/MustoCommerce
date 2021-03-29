@@ -19,19 +19,19 @@
                         <div class="osahan-body">
 
                             <!--             Category-Slider             -->
-                            <div class="pt-3 pb-2  osahan-categories ">
+                            <div class="p-3 mb-3 osahan-categories " >
                                 <div class="d-flex align-items-center mb-2">
                                     <h5 class="m-0">What do you looking for?</h5>
                                     <a href="listing.html" class="ml-auto btn btn-outline-success btn-sm">See more</a>
                                 </div>
-                                <div class="categories-slider" >
+                                <div class="categories-slider">
 
                                     <% if(categories.length > 0 ){
                                         categories.forEach((item, i) => { %>
                                                 <div class="col-c" id="categories-slider1">
                                                     <div class="bg-white shadow-sm rounded text-center my-2 px-2 py-3 c-it">
                                                         <a href="/listing/<%= item.subName %>">
-                                                            <img src="img/categorie/<%= item.subName %>.JPG" class="img-fluid px-2 mx-auto">
+                                                            <img src="<%= item.cover1ImagePath %>" class="img-fluid px-2 mx-auto">
                                                             <p class="m-0 pt-2 text-muted text-center"><%= item.name %></p>
                                                         </a>
                                                     </div>
@@ -45,8 +45,10 @@
                             </div>
 
                 
-                            <!--             Recommend-for-You             -->
-                            <div class="title d-flex align-items-center py-3">
+                        <!--             Recommend-for-You             -->
+                        
+                        <% if(featureProduct.length > 0 ){ %>
+                            <div class="title d-flex align-items-center p-3">
                                 <h5 class="m-0">Featured Products</h5>
                                 <a class="ml-auto btn btn-outline-success btn-sm" href="/listing">See more</a>
                             </div>
@@ -54,8 +56,7 @@
                             <div class="osahan-recommend">
                                 <div class="row">
                                     
-                                <% if(featureProduct.length > 0 ){
-                                    featureProduct.forEach( (item, i) => { 
+                                    <% featureProduct.forEach( (item, i) => { 
                                         if( i < 3) { %>
 
                                         <div class="col-12 col-md-4 mb-3">
@@ -97,25 +98,25 @@
                                             </a>
                                         </div>
                                                                                         
-                                        <% }
-                                    })
-                                } %>
+                                    <% }}) %>
                                 </div>
                             </div>
+                        <% } %>
+
                             <!--        Recommend-for-You Ends Here        -->
 
 
                             <!--             Pick-Today             -->
-                            <div class="title d-flex align-items-center py-3">
+                            <div class="title d-flex align-items-center p-3" >
                                 <h5 class="m-0">Pick's Today</h5>
                                 <a class="ml-auto btn btn-outline-success btn-sm" href="/listing">See more</a>
                             </div>
-                            <div class="pick_today">
+                            <div class="pick_today p-3">
                                 <div class="row" id="productRow1">
 
                                 <% products.forEach( (product) => { %>
                                     <div class="col-6 col-md-3 mb-3">
-                                        <div class="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
+                                        <div class="list-card  bg-white h-100 rounded overflow-hidden position-relative shadow-sm" style="background-color: #f0f2f5;">
                                             <div class="list-card-image">
                                                 <a href="/product-detail/<%= product.productId %>" class="text-dark">
                                                     <% if (product.promo != '' && product.promo != undefined){ %>  
@@ -131,10 +132,10 @@
                                                             <h6 class="price m-0 text-success">
                                                                 Rs. <% if (product.subPrice != '' && product.subPrice != undefined && product.subPrice != 0 && product.subPrice != product.price ) { %>
                                                                         <s style= "color: red;"><span style= "color: #167D7F;"> <%= product.price %> </span></s>  <%= product.subPrice %>  
-                                                                    <% } else { %>
+                                                                <% } else { %>
                                                                        <%= product.price %>
-                                                                    <% } %>
-                                                                    </h6>
+                                                                <% } %>
+                                                            </h6>
                                                         </div>
                                                     </div>
                                                 </a>
