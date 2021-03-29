@@ -103,14 +103,14 @@ router.post('/place-order-api-10590058', async (req, res) => {
 
     if(paymentMethod.method == "Cash On Delivery" ){
         console.log("valid Delivery");
-        isProductListValid = true;
+        isPaymentMethodValid = true;
     }else{
         console.log("not valid Delivery");
-        isProductListValid = false;
+        isPaymentMethodValid = false;
     }
 
     if(isUserDetailsValid == false){
-         return res.json( { "error" : "Your entered details are worng or missing any data, try again with complete and valid details." } )
+         return res.json( { "error" : "Your entered Order Address details are worng or missing any data, try again with complete and valid Order Address details." } )
         // return res.redirect("/cart"); 
     } else if ( isProductListValid == false){
          return res.json( { "error" : "Your cart is empty, add some products in cart." } );
