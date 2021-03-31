@@ -20,8 +20,8 @@ function getCartData(){
         let data = [...products]
         data = data.map(obj => { return obj.Id })
 
-        fetch('http://localhost:4000/find-cart-data', {
-        // fetch('https://mustocommerce.herokuapp.com/find-cart-data', {
+        // fetch('http://localhost:4000/find-cart-data', {
+        fetch('https://mustocommerce.herokuapp.com/find-cart-data', {
             method: "POST",
             body: JSON.stringify(data),
             headers: {"Content-type": "application/json; charset=UTF-8"}
