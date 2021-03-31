@@ -88,7 +88,7 @@ module.exports = {
           <div class="emailContainer">
               <!-- logo -->
               <header class="logoheader">
-                  <div class=""><img src="https://drive.google.com/thumbnail?id=1nmnTp_Yb7-LWrv5t-ggfhrb4-744f6vY" style="max-width: 400px;"></div>
+                  <div class=""><img src="https://lh3.googleusercontent.com/fife/ABSRlIolpmscwMTkL2up3WLmPbIM-Jdp41G4y9H2SL9S7XlCFJyAeZTY1jhzkV-8Oi33lhTqlTIO6s9xv-wjUgS6_Or3KUMFPDoR8F3U3RpXsS3jonTA4x71hnQiVbT7iN6PoMeftGbEsjEUePOF8qOQaxe5CiaJg2zi9tWp-G7SNTXuWQAPx7li6XAPQOCLIGkUXgMHYdCKtP3t83KCCj5SmpgaG0xSQyyXQjTAeIMQ35lG4N2VNK6xQ1h4OcgpYLLsXYqUiODwoDuQPw09wz8ma5m87rHCwGvRocxpEL_utAEOsemnxBNpo-Ed1e8EP2yUh_4fkN77kFxWqKoU625OROl6C2y3mhDyyFLzteNcYP4LZxyDtgyNNkSHVZisV_S9PFsXu-8xCjreXZ8EK4_vu3sWPzdZS_Lt3tLDotsU4CPCODgl1NQu_JQ-MjrFiEb4loe1tZq8rpM7L84f8BdpwAyxqvMbCrsrW8rc9KfQhAXWS3xZlxEYjtAPeDMVAj6wdpt4Q2HKFUIT2G7jenmoUvAhJ_9p2H9DXaUS9pmuGX0xRAP2sS7C9MdAON7Sf2XJ4pg3wxUvl0B0Hr0k6Z18LyFMf9AZyeo_AYYdGpmVnO1NCicNecBo4ZBH6nzgKW95ZPH2CkEjVr4jkrWAjilvUZ7xf1E8zGZbMOlEgeJyoq1zR6_fR_a38KGOMBMGyleypzR4PjRtJ2hqN7m0NyRufF2pbjM=s220-ft" style="max-width: 400px;"></div>
               </header>
               <!-- Password Reset heading -->
               <div class="pb-10">
