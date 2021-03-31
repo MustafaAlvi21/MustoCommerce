@@ -14,13 +14,13 @@ function getRadioValueByCost() {
 } 
 
 async function filterApi() {  
-    console.log(getRadioValueByCost())
+    // console.log(getRadioValueByCost())
     data1 = {};
     data1.sortBy = getRadioValueByCost();
     data1.MinPrice = document.getElementsByName("MinPrice")[0].value;
     data1.MaxPrice = document.getElementsByName("MaxPrice")[0].value;
-    // url = "http://localhost:4000/"
-    url = "https://mustocommerce.herokuapp.com/"
+    url = "http://localhost:4000/"
+    // url = "https://mustocommerce.herokuapp.com/"
     await fetch(url+ 'listing-api/014520523001',{
         method: "POST",
         body: JSON.stringify(data1),
@@ -28,8 +28,8 @@ async function filterApi() {
     })
     .then(response => response.json()) 
     .then(json => {
-        console.log("Post response")
-        console.log(json)
+        // console.log("Post response")
+        // console.log(json)
 
         showFilter(json)
     })
@@ -43,7 +43,7 @@ function showFilter(data){
     
     const productListSection = document.querySelector("#productRows")
     productListSection.innerHTML = ""
-    console.log(data.products[2]);
+    // console.log(data.products[2]);
     data.products.forEach((product,  i) => {
         productListSection.innerHTML += ` 
             <div class="col-6 col-md-3 mb-3">
@@ -82,7 +82,7 @@ function showFilter(data){
 /*                                              Creating List of products using API                                              */
 /* ============================================================================================================================= */
 
-homeApi()
+// homeApi()
 function homeApi() {  
     url = "http://localhost:4000/"
     fetch(url+ 'listing-api/01452052300')

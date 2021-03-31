@@ -32,28 +32,30 @@
                         <% if (data.length > 0 ){
                             data.forEach( data => { %>
                                 <div class="pb-3">
-                                    <a href="/order/<%= data.orderTracker %>" class="text-decoration-none text-dark">
+                                    <a href="/order/<%= data.orderId %>" class="text-decoration-none text-dark">
                                         <div class="p-3 rounded shadow-sm bg-white">
                                             <div class="d-flex align-items-center mb-3">
                                                 <% if(data.status == 'Cancel'){ %>
-                                                    <p class="bg-danger text-white py-1 px-2 mb-0 rounded small">Canceled</p>
+                                                    <p class="bg-danger text-white py-1 px-2 mb-0 rounded small mr-1">Canceled </p>
+                                                    <a href="/order/<%= data.orderId %>" class="btn btn-outline-success">View order</a> 
                                                     <p class="text-muted ml-auto small mb-0"><i class="icofont-clock-time"></i> <span class="date1"> <%= data.date %> </span> </p>    
                                                 <% } %>
                                                 <% if(data.status == 'Pending' || data.status == 'Processing' || data.status == 'Shipping'){ %>
                                                     <p class="bg-info text-white py-1 px-2 mb-0 rounded small"><%= data.status %></p>
                                                     <a href="#" onclick="confirmation('<%= data.orderId %>')" class="bg-secondary text-white py-1 mx-1 px-2 mb-0 rounded small"> Cancle order</a>
-                                                    
+                                                    <a href="/order/<%= data.orderId %>" class="btn btn-outline-success">View order</a>
                                                     <p class="text-muted ml-auto small mb-0"><i class="icofont-clock-time"></i> <span class="date1"> <%= data.date %> </span> </p>
-                                                <% } %>
-                                                <% if(data.status == 'Delivered' || data.status == 'Completed'){ %>
-                                                    <p class="bg-success text-white py-1 px-2 mb-0 rounded small"><%= data.status %></p>
-                                                    <p class="text-muted ml-auto small mb-0"><i class="icofont-clock-time"></i> <span class="date1"> <%= data.date %> </span> </p>
+                                                    <% } %>
+                                                    <% if(data.status == 'Delivered' || data.status == 'Completed'){ %>
+                                                        <p class="bg-success text-white py-1 px-2 mb-0 rounded small"><%= data.status %></p>
+                                                        <a href="/order/<%= data.orderId %>" class="btn btn-outline-success">View order</a>
+                                                        <p class="text-muted ml-auto small mb-0"><i class="icofont-clock-time"></i> <span class="date1"> <%= data.date %> </span> </p>
                                                 <% } %>
                                                 
                                             </div>
                                             <div class="d-flex" style="flex-wrap: wrap;">
                                                 <p class="text-muted m-0 px-2">Order Tracker<br>
-                                                    <span class="text-dark font-weight-bold"><%= data.orderTracker %></span>
+                                                    <span class="text-dark font-weight-bold"><%= data.orderId %></span>
                                                 </p>
                                                 <p class="text-muted m-0 ml-auto px-2">Delivered to<br>
                                                     <span class="text-dark font-weight-bold"><%= data.user.address888 %></span>

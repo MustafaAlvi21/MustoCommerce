@@ -91,6 +91,7 @@ router.post('/place-order-api-10590058', async (req, res) => {
         }else{
             console.log("not valid");
             isUserDetailsValid = false;
+            return res.json( { "error" : "Your entered Order Address details are worng or missing any data, try again with complete and valid Order Address details." } )
         }
     });
     if(ProductList != null ){
@@ -99,6 +100,7 @@ router.post('/place-order-api-10590058', async (req, res) => {
     }else{
         console.log("not valid");
         isProductListValid = false;
+        return res.json( { "error" : "Your cart is empty, add some products in cart." } );
     }
 
     if(paymentMethod.method == "Cash On Delivery" ){
@@ -107,62 +109,60 @@ router.post('/place-order-api-10590058', async (req, res) => {
     }else{
         console.log("not valid Delivery");
         isPaymentMethodValid = false;
+        return res.json( { "error" : "There is an error in your payment method or details." } )
     }
+
+
+    console.log(isUserDetailsValid);
+    console.log(isProductListValid);
+    console.log(isPaymentMethodValid);
 
     if(isUserDetailsValid == false){
          return res.json( { "error" : "Your entered Order Address details are worng or missing any data, try again with complete and valid Order Address details." } )
-        // return res.redirect("/cart"); 
     } else if ( isProductListValid == false){
          return res.json( { "error" : "Your cart is empty, add some products in cart." } );
-        // return res.redirect("/cart"); 
     } else if(isPaymentMethodValid == false){
          return res.json( { "error" : "There is an error in your payment method or details." } )
-        // return res.redirect("/cart"); 
     }
     
-    // console.log(UserDetails);
-    // console.log( ProductList);
-    // console.log(paymentMethod.method);
-    // let data = [...ProductList];
-
-    // console.log(isDataValid);
+    let data = [...ProductList];
 
     productsIDs = data.map(obj => { return obj.Id });
 
-    // productsData = await productDataModule.find({productId: {$in : productsIDs }}).then(data => {
-    //     return data
-    // }).catch(err => {
-    //     console.log(err);
-    //     return res.json({error: err})
-    // })
+    productsData = await productDataModule.find({productId: {$in : productsIDs }}).then(data => {
+        return data
+    }).catch(err => {
+        console.log(err);
+        return res.json({error: err})
+    })
 
-    // productsData.forEach((element,i) => {
-    //     totalCost += element.subPrice * ProductList[i].quantity
-    // });
+    productsData.forEach((element,i) => {
+        totalCost += element.subPrice * ProductList[i].quantity
+    });
 
-    // if(typeof req.user != "undefined"){
-    //     // user.userId = req.user._id
-    //     UserDetails.userId = req.user._id;
-    //     userData = UserDetails;
-    // } else {
-    //     UserDetails.userId = "guest-"+ userId;
-    //     userData = UserDetails;
-    // }
+    if(typeof req.user != "undefined"){
+        // user.userId = req.user._id
+        UserDetails.userId = req.user._id.toString();
+        userData = UserDetails;
+    } else {
+        UserDetails.userId = "guest-"+ userId;
+        userData = UserDetails;
+    }
     
-    // console.log(userData);
+    console.log(userData);
     
-    // let order = await new orderDataModule({
-    //     user : userData,
-    //     products : productsData, 
-    //     paymentMethod : paymentMethod, 
-    //     totalPrice : totalCost
-    // }).save().then(data => {
-    //     console.log("Order Placed")
-    //     return res.json({msg: "Order Placed.", success: true, orderId: data.orderId})
-    // }).catch(err => {
-    //     console.log(err);
-    //     return res.json({msg: err, success: false})
-    // })
+    let order = await new orderDataModule({
+        user : userData,
+        products : productsData, 
+        paymentMethod : paymentMethod, 
+        totalPrice : totalCost
+    }).save().then(data => {
+        console.log("Order Placed")
+        return res.json({msg: "Order Placed.", success: true, orderId: data.orderId})
+    }).catch(err => {
+        console.log(err);
+        return res.json({msg: err, success: false})
+    })
 
 })
 

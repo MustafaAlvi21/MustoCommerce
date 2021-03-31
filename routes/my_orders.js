@@ -9,8 +9,8 @@ const { isVerified } = require('../middlewares/isVerifiedAccount');
 /*                   My Orders                   */
 /* --------------------------------------------- */
 router.get('/my-orders', ensureAuthenticated, isVerified, async (req, res) => {
-    userId = req.user.userId;
-
+    userId = req.user._id.toString();
+console.log(userId);
     await orderDatModel.find({ "user.userId" : userId }).then((data) => {
         console.log(data)
         return res.render("my_order", {data, loginUser: typeof req.user != "undefined"? req.user : undefined})

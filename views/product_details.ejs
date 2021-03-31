@@ -97,27 +97,24 @@
                 <div class="col-lg-6">
                     <div class="p-4 bg-white rounded shadow-sm">
                         <div class="pt-0">
-                            <h2 class="font-weight-bold"><%= productDetails.name %> </h2>
+                            <h2 class="font-weight-bold"> <%= productDetails.name %> </h2>
                             <p class="font-weight-light text-dark m-0 d-flex align-items-center"> Product MRP : 
                                 <% if( productDetails.promo != "" ) { %> 
                                     <b class="h6 text-dark m-0"> &nbsp; <del> <%= productDetails.price %>.00 </del> &nbsp;<span class="text-success"><%= productDetails.subPrice %></span> </b>
                                     <span class="badge badge-danger ml-2"><%= productDetails.promo %> % OFF </span>
-                                <% } else { %> 
-                                    <b class="h6 text-dark m-0"> <%= productDetails.price %>.00 </b>
-                                <% } %>
+                                    <% } else { %> 
+                                        <b class="h6 text-dark m-0"> <%= productDetails.price %>.00 </b>
+                                        <% } %>
                             </p>
+                            <p id="productId" style="color: transparent; font-size: 0px;"> <%= productDetails.productId %> </p>
 
                         </div>
 
                         <!--   P r o d u c t    S i z e s    -->
                             <div class="pt-2">
                                 <div class="row">
-
                                     <div class="input-group mb-3">
-                                        <!-- <div class="input-group-prepend">
-                                          <label class="input-group-text" for="inputGroupSelect01">Options</label>
-                                        </div> -->
-                                    <% if (productDetails.productSizes.length > 0) { %>
+                                    <% if (productDetails.productSizes != "") { %>
                                         <div class="col-4">
                                             <select class="custom-select" id="inputGroupSelect01">
                                                 <% productDetails.productSizes.forEach( (size, i) => { %> 
@@ -136,7 +133,7 @@
                             </div>
 
                             <!--   P r o d u c t   C o l o r s    -->
-                            <% if (productDetails.productColors.length > 0) { %>
+                            <% if (productDetails.productColors != "") { %>
                                 <div class="pt-2">
                                     <div class="row">
                                         <h6 style="line-height: 0%;">Color Family</h6>
@@ -161,7 +158,7 @@
                                         <a class="" href="#">
                                             <form id='myform' class="cart-items-number d-flex" method='POST' action='#'>
                                                 <input type='button' class='qtyminus quantity1 btn btn-success btn-sm'  value='-' onclick="addToCart('-<%= productDetails.productId %>')" />
-                                                <input type='text' name='quantity' id="p_quantity0"  class='qty form-control' value='1' readonly/>
+                                                <input type='text' name='quantity' id="p_quantity0"  class='qty form-control' value='0' readonly/>
                                                 <input type='button' class='qtyplus quantity1 btn btn-success btn-sm' value='+' onclick="addToCart('+<%= productDetails.productId %>')" />
                                             </form>
                                         </a>
@@ -222,43 +219,6 @@
 
 </body>
 
-<script>
-        /* ================================================== */
-        /*                     Add to cart                     */
-        /* ================================================== */
-        function addToCart(itemId) {
-            let product = {}
-            // if(itemId[0] == "+"){
-            //     id1 = itemId.split("+")
-                product = {
-                    Id : itemId, quantity: 1
-                }
-            // } 
-            console.log(product);
-            
-            if (localStorage.getItem("product") === null) { a = [product]; return localStorage.setItem('product', JSON.stringify(a)); }
-            a =  JSON.parse(localStorage.getItem("product"))
-            temp = itemId.toString
-            a = JSON.parse(localStorage.getItem("product"))
-            for (let [key, value] of Object.entries(a)) {
-                if(value.Id == product.Id ){
-                    // alert("value.quantity" + value.quantity)
-                    if(parseInt(value.quantity + product.quantity) >= 0){
-                        // console.log("found")
-                        // console.log(key)
-                        a[key].quantity = parseInt(value.quantity + 1)
-                        localStorage.setItem('product', JSON.stringify(a)); 
-                        // alert('Added to cart')   
-                        return true;
-                    }else{
-                        return true;
-                    }
-                }
-            }
-            a.push(product)
-            return localStorage.setItem('product', JSON.stringify(a));            
-        }
-</script>
 
 <script>
     // gives the option the color of it's value
@@ -271,4 +231,16 @@
         $("#color-result").html($('input[name=radio]:checked').val());
     }
 
+    currentProductId = document.getElementById("productId").innerText
+    console.log(currentProductId);
+    products = JSON.parse( localStorage.getItem("product") )
+    products.forEach( item => {
+        if( currentProductId == item.Id ) {
+            console.log(item.quantity);
+            document.getElementById("p_quantity0").value = item.quantity; 
+        } else {
+            console.log(false);
+        }
+    });
+console.log(products);
 </script>

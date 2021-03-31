@@ -134,7 +134,7 @@ router.post('/listing-api/014520523001', async(req, res) => {
 /* ---------------------------------- */
 router.get('/product-detail/:productId', async (req, res) => {
     proData = await productDataModule.findOne({productId : req.params.productId, status : "active"}).then((data) => {
-        console.log(data.specs)
+        console.log(data.productSizes == "")
         return data
     }).catch((err) => {
         console.log(err);
